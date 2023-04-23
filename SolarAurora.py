@@ -1,7 +1,5 @@
 import sys
-from solarinterface import *
-from PyQt5.QtWidgets import QMainWindow, QApplication
-
+from ui_solarinterface import *
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -9,7 +7,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.show
+        self.show()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
