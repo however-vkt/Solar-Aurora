@@ -319,6 +319,7 @@ class WeatherInfo:
 
         self.location.clear()
         self.current.clear()
+
     def get_ForecastWeather_IP(self):
         days = 1
         params = {'key': self.key, 'q':[self.IP], 'days': days, 'aqi': ['no'], 'alerts': ['no']}
