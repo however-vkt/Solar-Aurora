@@ -136,55 +136,21 @@ async def save_to_solarflares(tag, date, flux):
             await db.commit()
 
 ########################################################################################################################
-#                                   ПЕРЕВОД (только для WeatherInfo)
-########################################################################################################################
-
-#                                   ПЕРЕВОД С ЭТОГО ОТКРЫТОГО API НЕКОРРЕКТЕН!!!!!
-
-async def get_translation(text, source, target):
-    async with ClientSession() as session:
-        url = 'https://libretranslate.de/translate'
-
-        data = {
-            'q': text,
-            'source': source,
-            'target': target,
-            'format': 'text',
-            'api_key': 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
-        }
-
-        async with session.post(url, json=data) as response:
-            translate_json = await response.json()
-            print(translate_json)
-            try:
-                return translate_json['translatedText']
-            except KeyError:
-                return text
-
-########################################################################################################################
 #                                               ОБРАБОТКА
 ########################################################################################################################
 
 async def handle(request):
-    city_ru = request.rel_url.query['city']
-    print(city_ru)
-
-    # Ретрансляция
-    city_ru = await get_translation(city_ru, 'en', 'ru')
-    city_en = await get_translation(city_ru, 'ru', 'en')
-    weather_en = await get_weather(city_en)
-    print(weather_en)
-
-    weather_ru = await get_translation(weather_en, 'en', 'ru')
+    city = request.rel_url.query['city']
+    print(city)
 
     # Запись результата
-    result = {'city': city_ru, 'weather': weather_ru}
+    result = await get_weather(city)
 
     # Сохранение в базу данных запроса
-    await save_to_weather(city_ru, weather_ru, weather_en)
+    #await save_to_weather(city_ru, weather_ru, weather_en)
 
     # Данные записываются в ветвь
-    return web.Response(text=json.dumps(result, ensure_ascii=False))
+    return web.Response(text=json.dumps(dict(result), ensure_ascii=False))
 async def handle_solarinfo(request):
     tag = request.rel_url.query['tag']
     print(tag)
@@ -226,19 +192,29 @@ async def handle_solarflares(request):
 #                                           ПОЛУЧЕНИЕ ДАННЫХ
 ########################################################################################################################
 
-#                                   ДАННЫЕ О ПОГОДЕ КРАЙНЕ МАЛЫ!!!!!
-
 async def get_weather(city):
     async with ClientSession() as session:
-        url = f'http://api.openweathermap.org/data/2.5/weather'
-        params = {'q': city, 'APPID': 'caca4fd20b8c035ad777a47244d9645e'}
+        url = f'http://api.weatherapi.com/v1/forecast.json'
+        key = '24c2984466784b7db68124535231004'
 
+        params = {'key': key, 'q':[city], 'days': '1', 'aqi': ['no'], 'alerts': ['no']}
+
+        dictionary = {0: [], 1: [], 2: []}
         async with session.get(url=url, params=params) as response:
-            weather_json = await response.json()
             try:
-                return weather_json["weather"][0]["main"]
-            except KeyError:
-                return 'Нет данных'
+                info = await response.json()
+            except HTTPError as http_err:
+                print(f'HTTP error occured: {http_err}')
+            except Exception as err:
+                print(f'Other error occured: {err}')
+            else:
+                info = await response.json()
+
+                # Организуем данные в словарь
+                dictionary[0] = info['location']
+                dictionary[1] = info['current']
+                dictionary[2] = info['forecast']
+    return dictionary
 
 async def get_solarinfo_2h():
     async with ClientSession() as session:
@@ -614,8 +590,6 @@ async def get_solarflares_3d():
 ########################################################################################################################
 #                                           Основная программа
 ########################################################################################################################
-
-#                           СДЕЛАТЬ ПОСТОЯННОЕ ВЫПОЛНЕНИЕ ТАСКОВ КАЖДЫЙ ПО СВОЕМУ ПЕРИОДУ!!!!!!!!!
 
 async def main():
     await create_table_solarinfo()
