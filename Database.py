@@ -6,7 +6,6 @@ import asyncio
 from aiohttp import ClientSession, web
 from datetime import datetime
 
-
 ########################################################################################################################
 #                                               СОЗДАНИЕ БАЗ ДАННЫХ
 ########################################################################################################################
@@ -594,9 +593,8 @@ async def get_solarflares_3d():
 async def main():
     await create_table_solarinfo()
     await create_table_solarflares()
+    #await create_table_weather()
 
-    # создание таблиц по погоде
-    await create_table_weather()
     # создание сервера
     app = web.Application()
     # создание веток

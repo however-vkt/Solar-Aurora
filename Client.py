@@ -49,7 +49,6 @@ class SolarInfo:
                     self.KpType = info.get('9')
 
                     print(info)
-
     async def get_solarinfo_1d(self):
         async with ClientSession() as session:
             # запрашиваем данные у NOAA
@@ -78,7 +77,6 @@ class SolarInfo:
                     self.KpType = info.get('9')
 
                     print(info)
-
     async def get_solarinfo_3d(self):
         async with ClientSession() as session:
             # запрашиваем данные у NOAA
@@ -113,30 +111,42 @@ class SolarInfo:
 ####################################################################################################################
 #   Класс для элемента "Погода"
 ####################################################################################################################
+#
+#                                           ЗАПИСАТЬ ДАННЫЕ!!!!!
 class WeatherInfo:
     def __init__(self):
         # Данные собираются с WeatherAPI.com
-        self.key = '24c2984466784b7db68124535231004'    # Ключ для работы с сайтом
-        self.IP = ''                                    # IP-адрес пользователя
-
         self.location = dict()
         self.current = dict()
-
         self.forecast = dict()
-        self.history = dict()
 
-    async def get_weather(city):
+    async def get_weather(self, city):
         async with ClientSession() as session:
+            print(city)
+
             url = f'http://localhost:8080/weather'
-            params = {'q': city, 'APPID': 'caca4fd20b8c035ad777a47244d9645e'}
-
+            params ={'city': city}
             async with session.get(url=url, params=params) as response:
-                weather_json = await response.json()
                 try:
-                    return weather_json["weather"][0]["main"]
-                except KeyError:
-                    return 'Нет данных'
+                    info = await response.json(content_type='text/plain')
+                    # Если ответ успешен, то исключения задействованы не будут
+                    response.raise_for_status()
 
+                except HTTPError as http_err:
+                    print(f'HTTP error occured: {http_err}')
+                except Exception as err:
+                    print(f'Other error occured: {err}')
+                else:
+                    print('Success!')
+                    info = await response.json(content_type='text/plain')
+
+                    self.location = info.get('0')
+                    self.current = info.get('1')
+                    self.forecast = info.get('2')
+
+                    print(self.location)
+                    print(self.current)
+                    print(self.forecast)
 
 ####################################################################################################################
 #   Класс для элемента "Солнечные вспышки"
@@ -169,7 +179,6 @@ class SolarFlares:
                     self.flux = info.get('1')
 
                     print(info)
-
     async def get_solarflares_1d(self):
         async with ClientSession() as session:
             # запрашиваем данные у NOAA
@@ -196,7 +205,6 @@ class SolarFlares:
 
                     print(self.date)
                     print(self.flux)
-
     async def get_solarflares_3d(self):
         async with ClientSession() as session:
             # запрашиваем данные у NOAA
@@ -229,6 +237,7 @@ class SolarFlares:
 async def main():
     a = SolarInfo()
     b = SolarFlares()
+    c = WeatherInfo()
 
     # Асинхронное обновление данных
     while True:
@@ -236,14 +245,23 @@ async def main():
 
         await b.get_solarflares_6h()
 
+        city = 'Saint-Petersburg'
+        await c.get_weather(city)
+
         print(a.KpType)
         print(a.Kp)
+        print(" ")
 
         print(b.date)
         print(b.flux)
         print(" ")
+
+        print(c.location)
+        print(c.current)
+        print(c.forecast)
         print(" ")
-        await asyncio.sleep(60)
+        print(" ")
+        await asyncio.sleep(7200)
 
 if __name__ == '__main__':
     asyncio.run(main())
