@@ -230,6 +230,7 @@ async def main():
     a = SolarInfo()
     b = SolarFlares()
 
+    # Асинхронное обновление данных
     while True:
         await a.get_solarinfo_2h()
 
