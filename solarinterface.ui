@@ -6,46 +6,37 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>947</width>
-    <height>639</height>
+    <width>838</width>
+    <height>579</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">*{
+   <string notr="true">QFrame{
 	border: none;
-	background-color: transparent;
-	background: transparent;
-	padding: 0;
-	margin: 0;
-	color: #FFF;
-}
-#centralwidget{
-	background-color:#4A1F59;
 }
 #leftMenuSubContainer{
-	background-color:#260D33;
+	background-color: grey;
 }
 #leftMenuSubContainer QPushButton{
+	margin: 2px;
 	text-align: left;
 	padding: 5px 10px;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
+	background-color: #D3D3D3;
 }
-#centerMenuSubContainer
-{
-	background-color: #361247;
+#frame_7 QPushButton{
+	background-color: #D3D3D3;
 }
 #frame_4,#frame_8,#popupNotificationSubContainer
 {
-	background-color: #2C0F3B;
+	background-color: grey;
 	border-radius: 10px;
 }
 #headerContainer
 {
-	background-color: #2C0F3B;
+	background-color: grey;
 }
 
 
@@ -166,8 +157,8 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="ICONS_4pr/ICONS_pr.qrc">
-                 <normaloff>:/ICONS/icons8-menu-rounded-50.png</normaloff>:/ICONS/icons8-menu-rounded-50.png</iconset>
+                <iconset resource="icons/ico.qrc">
+                 <normaloff>:/newPrefix/menu.svg</normaloff>:/newPrefix/menu.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -180,7 +171,7 @@
             </layout>
            </widget>
           </item>
-          <item alignment="Qt::AlignTop">
+          <item>
            <widget class="QFrame" name="frame_2">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -220,7 +211,9 @@
               <widget class="QPushButton" name="SolarButton">
                <property name="font">
                 <font>
-                 <pointsize>11</pointsize>
+                 <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                 <pointsize>14</pointsize>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="toolTip">
@@ -233,8 +226,8 @@
                 <string>Solar Activity</string>
                </property>
                <property name="icon">
-                <iconset resource="ICONS_4pr/ICONS_pr.qrc">
-                 <normaloff>:/ICONS/sun.png</normaloff>:/ICONS/sun.png</iconset>
+                <iconset resource="icons/ico.qrc">
+                 <normaloff>:/newPrefix/sun.svg</normaloff>:/newPrefix/sun.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -248,7 +241,9 @@
               <widget class="QPushButton" name="WeatherButton">
                <property name="font">
                 <font>
-                 <pointsize>11</pointsize>
+                 <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                 <pointsize>14</pointsize>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="toolTip">
@@ -258,8 +253,8 @@
                 <string>Weather</string>
                </property>
                <property name="icon">
-                <iconset resource="ICONS_4pr/ICONS_pr.qrc">
-                 <normaloff>:/ICONS/clouds.png</normaloff>:/ICONS/clouds.png</iconset>
+                <iconset resource="icons/ico.qrc">
+                 <normaloff>:/newPrefix/cloud-lightning.svg</normaloff>:/newPrefix/cloud-lightning.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -273,40 +268,17 @@
               <widget class="QPushButton" name="FlaresButton">
                <property name="font">
                 <font>
-                 <pointsize>11</pointsize>
+                 <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                 <pointsize>14</pointsize>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
                 <string>Flares</string>
                </property>
                <property name="icon">
-                <iconset resource="ICONS_4pr/ICONS_pr.qrc">
-                 <normaloff>:/ICONS/flare.png</normaloff>:/ICONS/flare.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="reportBtn">
-               <property name="font">
-                <font>
-                 <pointsize>11</pointsize>
-                </font>
-               </property>
-               <property name="toolTip">
-                <string>View Reports</string>
-               </property>
-               <property name="text">
-                <string>Reports</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/printer.svg</normaloff>:/icons/icons/printer.svg</iconset>
+                <iconset resource="icons/ico.qrc">
+                 <normaloff>:/newPrefix/activity.svg</normaloff>:/newPrefix/activity.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -323,6 +295,9 @@
            <spacer name="verticalSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -366,7 +341,9 @@
               <widget class="QPushButton" name="settingsBtn">
                <property name="font">
                 <font>
-                 <pointsize>11</pointsize>
+                 <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                 <pointsize>14</pointsize>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="toolTip">
@@ -376,13 +353,13 @@
                 <string>Settings</string>
                </property>
                <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/settings.svg</normaloff>:/icons/icons/settings.svg</iconset>
+                <iconset resource="icons/ico.qrc">
+                 <normaloff>:/newPrefix/settings.svg</normaloff>:/newPrefix/settings.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>32</width>
+                 <height>32</height>
                 </size>
                </property>
               </widget>
@@ -391,7 +368,9 @@
               <widget class="QPushButton" name="infoBtn">
                <property name="font">
                 <font>
-                 <pointsize>11</pointsize>
+                 <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                 <pointsize>14</pointsize>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="toolTip">
@@ -401,8 +380,8 @@
                 <string>Information</string>
                </property>
                <property name="icon">
-                <iconset resource="ICONS_4pr/ICONS_pr.qrc">
-                 <normaloff>:/ICONS/info.png</normaloff>:/ICONS/info.png</iconset>
+                <iconset resource="icons/ico.qrc">
+                 <normaloff>:/newPrefix/info.svg</normaloff>:/newPrefix/info.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -416,7 +395,9 @@
               <widget class="QPushButton" name="helpBtn">
                <property name="font">
                 <font>
-                 <pointsize>11</pointsize>
+                 <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                 <pointsize>14</pointsize>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="toolTip">
@@ -426,13 +407,13 @@
                 <string>Help</string>
                </property>
                <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/help-circle.svg</normaloff>:/icons/icons/help-circle.svg</iconset>
+                <iconset resource="icons/ico.qrc">
+                 <normaloff>:/newPrefix/help-circle.svg</normaloff>:/newPrefix/help-circle.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>32</width>
+                 <height>32</height>
                 </size>
                </property>
               </widget>
@@ -464,150 +445,6 @@
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item alignment="Qt::AlignLeft">
-        <widget class="QWidget" name="centerMenuSubContainer" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
-          <property name="spacing">
-           <number>5</number>
-          </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
-           <number>5</number>
-          </property>
-          <item alignment="Qt::AlignTop">
-           <widget class="QFrame" name="frame_4">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
-              <widget class="QLabel" name="label">
-               <property name="font">
-                <font>
-                 <pointsize>11</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>More Menu</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item alignment="Qt::AlignRight">
-              <widget class="QPushButton" name="closeCenterMenuBtn">
-               <property name="toolTip">
-                <string>Close Menu</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/x-circle.svg</normaloff>:/icons/icons/x-circle.svg</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCustomStackedWidget" name="centerMenuPages">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="currentIndex">
-             <number>0</number>
-            </property>
-            <widget class="QWidget" name="page_3">
-             <layout class="QVBoxLayout" name="verticalLayout_7">
-              <item>
-               <widget class="QLabel" name="label_2">
-                <property name="font">
-                 <font>
-                  <pointsize>13</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Settings</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="page_5">
-             <layout class="QVBoxLayout" name="verticalLayout_9">
-              <item>
-               <widget class="QLabel" name="label_4">
-                <property name="font">
-                 <font>
-                  <pointsize>13</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Help</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="page_4">
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <item>
-               <widget class="QLabel" name="label_3">
-                <property name="font">
-                 <font>
-                  <pointsize>13</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Information</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
       </layout>
      </widget>
     </item>
@@ -641,7 +478,24 @@
        <item alignment="Qt::AlignTop">
         <widget class="QWidget" name="headerContainer" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item alignment="Qt::AlignLeft">
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="font">
+             <font>
+              <family>8BIT WONDER(RUS BY LYAJKA)</family>
+              <pointsize>14</pointsize>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
            <widget class="QFrame" name="frame_5">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -665,170 +519,6 @@
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item>
-              <widget class="QLabel" name="label_5">
-               <property name="font">
-                <font>
-                 <pointsize>13</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>SolarAurora</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignHCenter">
-           <widget class="QFrame" name="frame_6">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <property name="spacing">
-              <number>6</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QPushButton" name="notificationBtn">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/bell.svg</normaloff>:/icons/icons/bell.svg</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="moreMenuBtn">
-               <property name="toolTip">
-                <string>More</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/more-horizontal.svg</normaloff>:/icons/icons/more-horizontal.svg</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="profileMenuBtn">
-               <property name="toolTip">
-                <string>Profile</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/user.svg</normaloff>:/icons/icons/user.svg</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item alignment="Qt::AlignRight">
-           <widget class="QFrame" name="frame_7">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QPushButton" name="minimizeBtn">
-               <property name="toolTip">
-                <string>Minimize Window</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/minus.svg</normaloff>:/icons/icons/minus.svg</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="restoreBtn">
-               <property name="toolTip">
-                <string>Restore Window</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/square.svg</normaloff>:/icons/icons/square.svg</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="closeBtn">
-               <property name="toolTip">
-                <string>Close Window</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/icons/x.svg</normaloff>:/icons/icons/x.svg</iconset>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </item>
@@ -864,11 +554,12 @@
                   <widget class="QLabel" name="label_10">
                    <property name="font">
                     <font>
-                     <pointsize>13</pointsize>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                     <pointsize>12</pointsize>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Home</string>
+                    <string>Solar Activity</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
@@ -883,11 +574,12 @@
                   <widget class="QLabel" name="label_11">
                    <property name="font">
                     <font>
-                     <pointsize>13</pointsize>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                     <pointsize>8</pointsize>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Data Analysis</string>
+                    <string>Weather</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
@@ -902,11 +594,12 @@
                   <widget class="QLabel" name="label_12">
                    <property name="font">
                     <font>
-                     <pointsize>13</pointsize>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                     <pointsize>8</pointsize>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Reports</string>
+                    <string>Flares</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
@@ -933,7 +626,8 @@
               <widget class="QLabel" name="label_14">
                <property name="font">
                 <font>
-                 <weight>75</weight>
+                 <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                 <pointsize>11</pointsize>
                  <bold>true</bold>
                 </font>
                </property>
@@ -959,6 +653,12 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                    <pointsize>8</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Notification Message</string>
                   </property>
@@ -967,7 +667,7 @@
                   </property>
                  </widget>
                 </item>
-                <item alignment="Qt::AlignRight">
+                <item>
                  <widget class="QPushButton" name="closeNotificationBtn">
                   <property name="toolTip">
                    <string>Close notification</string>
@@ -976,8 +676,8 @@
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
-                    <normaloff>:/icons/icons/x-octagon.svg</normaloff>:/icons/icons/x-octagon.svg</iconset>
+                   <iconset resource="icons/ico.qrc">
+                    <normaloff>:/newPrefix/x-octagon.svg</normaloff>:/newPrefix/x-octagon.svg</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1017,7 +717,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="ICONS_4pr/ICONS_pr.qrc"/>
+  <include location="icons/ico.qrc"/>
  </resources>
  <connections/>
 </ui>

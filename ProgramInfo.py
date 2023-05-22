@@ -1,7 +1,16 @@
 import requests
+import sqlite3
+
+import asyncio
+import json
+from aiohttp import ClientSession, web
+
 from requests.exceptions import HTTPError
 
-# Класс для элемента "Солнце"
+####################################################################################################################
+#   Класс для элемента "Солнце"
+####################################################################################################################
+
 class SolarInfo:
     def __init__(self):
         self.dateBzBt = list()  # Дата со спутника (для bz, bt)
@@ -16,71 +25,77 @@ class SolarInfo:
         self.DST = list()       # Индекс временного спада   [nT]
         self.Kp = list()        # Kp-индекс
         self.KpType = list()    # Тип Kp-индекса (observed, estimated, predicted)
+
+    ####################################################################################################################
+    #   ПОЛУЧЕНИЕ ДАННЫХ ПО ЗАПРОСУ В СПИСКИ
+    ####################################################################################################################
+
     # Функция получения и сортировки данных от NOAA SWPC за 2 часа (date, bz, bt, date2, u, p)
-    def get_2h(self):
-        #запрашиваем данные у NOAA
-        for url in ['https://services.swpc.noaa.gov/products/solar-wind/mag-2-hour.json']:
-            try:
-                response = requests.get(url)
-                # Если ответ успешен, то исключения задействованы не будут
-                response.raise_for_status()
+    async def get_2h(self):
+        async with ClientSession() as session:
+            #запрашиваем данные у NOAA
+            url = 'https://services.swpc.noaa.gov/products/solar-wind/mag-2-hour.json'
 
-            except HTTPError as http_err:
-                print(f'HTTP error occured: {http_err}')
-            except Exception as err:
-                print(f'Other error occured: {err}')
-            else:
-                print('Success!')
+            async with session.get(url=url) as response:
+                try:
+                    response = await response.json()
+                    # Если ответ успешен, то исключения задействованы не будут
+                    response.raise_for_status()
+                except HTTPError as http_err:
+                    print(f'HTTP error occured: {http_err}')
+                except Exception as err:
+                    print(f'Other error occured: {err}')
+                else:
+                    print('Success!')
+                    response = requests.get('https://services.swpc.noaa.gov/products/solar-wind/mag-2-hour.json')
+                    info = response.json()
 
-                response = requests.get('https://services.swpc.noaa.gov/products/solar-wind/mag-2-hour.json')
-                info = response.json()
+                    # Организуем данные в словарь
+                    flag = 0
+                    dict = {0: [], 1: [], 2: []}
+                    for data in info:
+                        if flag != 0:
+                            dict[0].append(data[0])
+                            dict[1].append(data[3])
+                            dict[2].append(data[6])
+                        flag = 1
 
-                # Организуем данные в словарь
-                flag = 0
-                dict = {0: [], 1: [], 2: []}
-                for data in info:
-                    if flag != 0:
-                        dict[0].append(data[0])
-                        dict[1].append(data[3])
-                        dict[2].append(data[6])
-                    flag = 1
+                    # Организуем списки с отсортированными данными (date, bz, bt)
+                    self.dateBzBt = list(dict[0])
+                    self.bz = list(dict[1])
+                    self.bt = list(dict[2])
 
-                # Организуем списки с отсортированными данными (date, bz, bt)
-                self.dateBzBt = list(dict[0])
-                self.bz = list(dict[1])
-                self.bt = list(dict[2])
+            # Запрашиваем данные у NOAA
+            for url in ['https://services.swpc.noaa.gov/products/solar-wind/plasma-2-hour.json']:
+                try:
+                    response = requests.get(url)
+                    # Если ответ успешен, то исключения задействованы не будут
+                    response.raise_for_status()
 
-        # Запрашиваем данные у NOAA
-        for url in ['https://services.swpc.noaa.gov/products/solar-wind/plasma-2-hour.json']:
-            try:
-                response = requests.get(url)
-                # Если ответ успешен, то исключения задействованы не будут
-                response.raise_for_status()
+                except HTTPError as http_err:
+                    print(f'HTTP error occured: {http_err}')
+                except Exception as err:
+                    print(f'Other error occured: {err}')
+                else:
+                    print('Success!')
 
-            except HTTPError as http_err:
-                print(f'HTTP error occured: {http_err}')
-            except Exception as err:
-                print(f'Other error occured: {err}')
-            else:
-                print('Success!')
+                    response = requests.get('https://services.swpc.noaa.gov/products/solar-wind/plasma-2-hour.json')
+                    info = response.json()
 
-                response = requests.get('https://services.swpc.noaa.gov/products/solar-wind/plasma-2-hour.json')
-                info = response.json()
+                    # Организуем данные в словарь
+                    flag = 0
+                    dict = {0: [], 1: [], 2: []}
+                    for data in info:
+                        if flag != 0:
+                            dict[0].append(data[0])
+                            dict[1].append(data[1])
+                            dict[2].append(data[2])
+                        flag = 1
 
-                # Организуем данные в словарь
-                flag = 0
-                dict = {0: [], 1: [], 2: []}
-                for data in info:
-                    if flag != 0:
-                        dict[0].append(data[0])
-                        dict[1].append(data[1])
-                        dict[2].append(data[2])
-                    flag = 1
-
-                # Организуем списки с отсортированными данными (date, u, p)
-                self.dateUP = list(dict[0])
-                self.u = list(dict[1])
-                self.p = list(dict[2])
+                    # Организуем списки с отсортированными данными (date, u, p)
+                    self.dateUP = list(dict[0])
+                    self.u = list(dict[1])
+                    self.p = list(dict[2])
     # Функция получения и сортировки данных от NOAA SWPC за 1 день (date, bz, bt, date2, u, p)
     def get_1d(self):
         # Запрашиваем данные у NOAA
@@ -276,10 +291,13 @@ class SolarInfo:
                 self.Kp = list(dict[1])
                 self.KpType = list(dict[2])
 
-# Класс для элемента "Погода"
+####################################################################################################################
+#   Класс для элемента "Погода"
+####################################################################################################################
+
 class WeatherInfo:
     def __init__(self):
-        # Данные собираются с   WeatherAPI.com
+        # Данные собираются с WeatherAPI.com
         self.key = '24c2984466784b7db68124535231004'    # Ключ для работы с сайтом
         self.IP = ''                                    # IP-адрес пользователя
 
@@ -346,13 +364,14 @@ class WeatherInfo:
     # Получение ID местоположения с помощью поиска (по городу, району, области, стране, аэропорту)
     #def get_WeatherInfo_Query(self):
 
+####################################################################################################################
+#   Класс для элемента "Солнечные вспышки"
+####################################################################################################################
 
-# Класс для элемента "Солнечные вспышки"
 class SolarFlares:
     def __init__(self):
         self.date = list()      # Дата измерений
         self.flux = list()      # electron flux
-
     # Информация об electron flux за 6 часов
     def get_6h(self):
         #запрашиваем данные у NOAA
@@ -373,7 +392,6 @@ class SolarFlares:
                 for data in info:
                     self.date.append(data['time_tag'])
                     self.flux.append(data['flux'])
-
     # Информация об electron flux за 1 день
     def get_1d(self):
         #запрашиваем данные у NOAA
@@ -394,7 +412,6 @@ class SolarFlares:
                 for data in info:
                     self.date.append(data['time_tag'])
                     self.flux.append(data['flux'])
-
     # Информация об electron flux за 3 дня
     def get_3d(self):
         #запрашиваем данные у NOAA
@@ -415,9 +432,3 @@ class SolarFlares:
                 for data in info:
                     self.date.append(data['time_tag'])
                     self.flux.append(data['flux'])
-
-if __name__ == '__main__':
-    a = WeatherInfo()
-    a.get_IP()
-    a.get_CurrentWeather_IP()
-    a.get_ForecastWeather_IP()

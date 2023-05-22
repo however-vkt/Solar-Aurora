@@ -636,8 +636,7 @@ async def main():
     await site.start()
 
     while True:
-        await asyncio.sleep(3600)
-
+        await asyncio.sleep(7200)
 
 if __name__ == '__main__':
     asyncio.run(main())
