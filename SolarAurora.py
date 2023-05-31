@@ -6,6 +6,8 @@ from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
 
+import Client
+
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self)
@@ -13,10 +15,15 @@ class MainWindow(QMainWindow):
 
         icon = QIcon()
 
+        icon.addPixmap(QPixmap('pic/bell.png'))
+        self.btnNotification.setIcon(icon)
+        self.btnNotification.setIconSize(QSize(32, 32))
+        self.btnNotification.clicked.connect(lambda: self.popupNotificationContainer.show())
+
         icon.addPixmap(QPixmap('pic/x.png'))
         self.closeNotificationBtn.setIcon(icon)
         self.closeNotificationBtn.setIconSize(QSize(32, 32))
-        #
+        self.closeNotificationBtn.clicked.connect(lambda: self.popupNotificationContainer.close())
 
         icon.addPixmap(QPixmap('pic/menu.png'))
         self.MenuButton.setIcon(icon)
@@ -57,17 +64,16 @@ class MainWindow(QMainWindow):
         self.settingsBtn.clicked.connect(lambda: self.mainPages.setCurrentWidget(self.page_settings))
 
         self.show()
-        # closeNotificationBtn
-        #
-        # MenuButton
-        #
-        # FlaresButton
-        # SolarButton
-        # WeatherButton
-        #
-        # helpBtn
-        # infoBtn
-        # settingsBtn
+
+    def solarInfo(self):
+        s2h = Client.SolarInfo()
+        s1d = Client.SolarInfo()
+        s3d = Client.SolarInfo()
+
+        s2h.get_solarinfo_2h()
+        s1d.get_solarinfo_1d()
+        s3d.get_solarinfo_3d()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
