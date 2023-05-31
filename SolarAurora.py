@@ -2,6 +2,7 @@ import sys
 
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtCore import QPropertyAnimation
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
@@ -15,20 +16,25 @@ class MainWindow(QMainWindow):
 
         icon = QIcon()
 
+        # Кнопка - Notification
         icon.addPixmap(QPixmap('pic/bell.png'))
         self.btnNotification.setIcon(icon)
         self.btnNotification.setIconSize(QSize(32, 32))
         self.btnNotification.clicked.connect(lambda: self.popupNotificationContainer.show())
 
+        # Кнопка - Close Notification
         icon.addPixmap(QPixmap('pic/x.png'))
         self.closeNotificationBtn.setIcon(icon)
         self.closeNotificationBtn.setIconSize(QSize(32, 32))
         self.closeNotificationBtn.clicked.connect(lambda: self.popupNotificationContainer.close())
 
+        # Кнопка - Menu
         icon.addPixmap(QPixmap('pic/menu.png'))
         self.MenuButton.setIcon(icon)
         self.MenuButton.setIconSize(QSize(32, 32))
-        #
+
+        self.changed = False
+        self.MenuButton.clicked.connect(lambda: self.expand_or_collapse(self.changed))
 
         # Кнопка - Sun
         icon.addPixmap(QPixmap('pic/sun.png'))
@@ -65,14 +71,20 @@ class MainWindow(QMainWindow):
 
         self.show()
 
-    def solarInfo(self):
-        s2h = Client.SolarInfo()
-        s1d = Client.SolarInfo()
-        s3d = Client.SolarInfo()
+    def expand_menu(self):
+        self.leftMenuContainer.setFixedWidth(349)
 
-        s2h.get_solarinfo_2h()
-        s1d.get_solarinfo_1d()
-        s3d.get_solarinfo_3d()
+    def collapse_menu(self):
+        self.leftMenuContainer.setFixedWidth(55)
+
+    def expand_or_collapse(self, changed):
+        if (not changed):
+            self.collapse_menu()
+            self.changed = True
+        else:
+            self.expand_menu()
+            self.changed = False
+
 
 
 if __name__ == "__main__":

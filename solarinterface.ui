@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Solar Aurora</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QFrame{
@@ -29,15 +29,16 @@
 #leftMenuSubContainer QPushButton{
 	margin: 2px;
 	text-align: left;
-	padding: 5px 10px;
+	padding: 10px 10px;
 	background-color: #D3D3D3;
 }
 QPushButton{
+	border-radius: 10px;
 	margin: 2px;
 	background-color: #D3D3D3;
-	padding: 5px 10px;
+	padding: 10px 10px;
 }
-#frame_4,#frame_8,#popupNotificationSubContainer
+#frame_4, #frame_5, #frame_6, #popupNotificationSubContainer
 {
 	background-color: grey;
 	border-radius: 10px;
@@ -48,6 +49,12 @@ QPushButton{
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <property name="spacing">
      <number>0</number>
@@ -66,16 +73,16 @@ QPushButton{
     </property>
     <item alignment="Qt::AlignLeft">
      <widget class="QCustomSlideMenu" name="leftMenuContainer" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>0</width>
         <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
        </size>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -439,30 +446,9 @@ QPushButton{
      </widget>
     </item>
     <item>
-     <widget class="QCustomSlideMenu" name="centerMenuContainer" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-      </layout>
-     </widget>
-    </item>
-    <item>
      <widget class="QWidget" name="mainBodyContainer" native="true">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -544,12 +530,112 @@ QPushButton{
                 </size>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>2</number>
                </property>
                <widget class="QWidget" name="page_solar">
                 <layout class="QVBoxLayout" name="verticalLayout_16">
                  <item>
-                  <widget class="QLabel" name="label_10">
+                  <widget class="QLabel" name="label_choose">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Choose a period </string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_4">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_4">
+                    <item>
+                     <widget class="QPushButton" name="btnSolar3d">
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="sizeIncrement">
+                       <size>
+                        <width>1</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>2 hours</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnSolar1d">
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>1 day</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnSolar2h">
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>3 days</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_solarinfo">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -580,7 +666,101 @@ QPushButton{
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">
                  <item>
-                  <widget class="QLabel" name="label_11">
+                  <widget class="QLabel" name="label_enterloc">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Enter your location:</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="lineEdit_location">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                    </font>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_5">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_5">
+                    <item>
+                     <widget class="QPushButton" name="btnWeatherCurrent">
+                      <property name="maximumSize">
+                       <size>
+                        <width>160</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Current</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnWeatherForecast">
+                      <property name="maximumSize">
+                       <size>
+                        <width>160</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Forecast</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_weatherinfo">
                    <property name="font">
                     <font>
                      <family>8BIT WONDER(RUS BY LYAJKA)</family>
@@ -608,7 +788,101 @@ QPushButton{
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_18">
                  <item>
-                  <widget class="QLabel" name="label_12">
+                  <widget class="QLabel" name="label_chooseflaresperiod">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Choose a period</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_6">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_6">
+                    <item>
+                     <widget class="QPushButton" name="btnFlares6h">
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>6 hours</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnFlares1d">
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>1 day</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnFlares3d">
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>3 days</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_flaresinfo">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
