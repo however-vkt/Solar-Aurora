@@ -6,8 +6,8 @@ from PyQt5.QtGui import QIcon, QPixmap
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
+from aiohttp import ClientConnectorError
 
-import pyqtgraph as pg
 import Client
 
 class MainWindow(QMainWindow):
@@ -101,6 +101,27 @@ class MainWindow(QMainWindow):
         #self.btnFlares1d.clicked.connect()
         #self.btnFlares3d.clicked.connect()
 
+        self.GraphWidget_bz_2h.setBackground('w')
+        self.GraphWidget_bt_2h.setBackground('w')
+        self.GraphWidget_u_2h.setBackground('w')
+        self.GraphWidget_p_2h.setBackground('w')
+        self.GraphWidget_DST_2h.setBackground('w')
+        self.GraphWidget_Kp_2h.setBackground('w')
+
+        self.GraphWidget_bz_1d.setBackground('w')
+        self.GraphWidget_bt_1d.setBackground('w')
+        self.GraphWidget_u_1d.setBackground('w')
+        self.GraphWidget_p_1d.setBackground('w')
+        self.GraphWidget_DST_1d.setBackground('w')
+        self.GraphWidget_Kp_1d.setBackground('w')
+
+        self.GraphWidget_bz_3d.setBackground('w')
+        self.GraphWidget_bt_3d.setBackground('w')
+        self.GraphWidget_u_3d.setBackground('w')
+        self.GraphWidget_p_3d.setBackground('w')
+        self.GraphWidget_DST_3d.setBackground('w')
+        self.GraphWidget_Kp_3d.setBackground('w')
+
         self.show()
 
     def expand_menu(self):
@@ -120,7 +141,13 @@ async def main():
     window = MainWindow()
     window.show()
 
-    window.GraphWidget_bz_2h
+    s2h = Client.SolarInfo()
+    result = await s2h.get_solarinfo_2h()
+    if (ClientConnectorError):
+        print(result)
+    else:
+        print(result.get('0'))
+        print(result.get('1'))
 
     sys.exit(app.exec_())
 

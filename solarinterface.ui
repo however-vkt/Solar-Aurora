@@ -38,6 +38,9 @@ QPushButton{
 	padding: 10px 10px;
 	background-color: #D3D3D3;
 }
+#closeNotificationBtn{
+	background-color: grey;
+}
 #frame_4, #frame_5, #frame_6, #popupNotificationSubContainer
 {
 	background-color: grey;
@@ -1168,7 +1171,6 @@ QPushButton{
                       <property name="font">
                        <font>
                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
-                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -1187,7 +1189,6 @@ QPushButton{
                       <property name="font">
                        <font>
                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
-                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -1206,7 +1207,6 @@ QPushButton{
                       <property name="font">
                        <font>
                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
-                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="text">
