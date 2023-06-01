@@ -13,7 +13,7 @@
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>397</height>
+    <height>0</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
 	background-color: grey;
 }
 #leftMenuSubContainer QPushButton{
-	margin: 2px;
+	margin: 4px;
 	text-align: left;
 	padding: 10px 10px;
 	background-color: #D3D3D3;
@@ -35,8 +35,8 @@
 QPushButton{
 	border-radius: 10px;
 	margin: 2px;
-	background-color: #D3D3D3;
 	padding: 10px 10px;
+	background-color: #D3D3D3;
 }
 #frame_4, #frame_5, #frame_6, #popupNotificationSubContainer
 {
@@ -154,6 +154,12 @@ QPushButton{
              </property>
              <item>
               <widget class="QPushButton" name="MenuButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="font">
                 <font>
                  <pointsize>11</pointsize>
@@ -230,7 +236,7 @@ QPushButton{
                 </font>
                </property>
                <property name="toolTip">
-                <string>Home</string>
+                <string>Go to check solar activity</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
@@ -261,7 +267,7 @@ QPushButton{
                 </font>
                </property>
                <property name="toolTip">
-                <string>Data Analysis</string>
+                <string>Go to check weather</string>
                </property>
                <property name="text">
                 <string>Weather</string>
@@ -287,6 +293,9 @@ QPushButton{
                  <weight>50</weight>
                  <bold>false</bold>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>Go to check solar flares</string>
                </property>
                <property name="text">
                 <string>Flares</string>
@@ -317,7 +326,7 @@ QPushButton{
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>40</height>
+              <height>35</height>
              </size>
             </property>
            </spacer>
@@ -475,19 +484,22 @@ QPushButton{
        <item>
         <widget class="QWidget" name="headerContainer" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item alignment="Qt::AlignLeft">
+          <item>
            <widget class="QPushButton" name="btnNotification">
             <property name="minimumSize">
              <size>
-              <width>40</width>
-              <height>40</height>
+              <width>50</width>
+              <height>50</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>40</width>
-              <height>40</height>
+              <width>50</width>
+              <height>50</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>Notification</string>
             </property>
             <property name="text">
              <string/>
@@ -530,10 +542,44 @@ QPushButton{
                 </size>
                </property>
                <property name="currentIndex">
-                <number>2</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="page_solar">
                 <layout class="QVBoxLayout" name="verticalLayout_16">
+                 <item>
+                  <widget class="QLabel" name="label_solarinfo">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Solar Activity page</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <widget class="QLabel" name="label_choose">
                    <property name="maximumSize">
@@ -572,7 +618,7 @@ QPushButton{
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_4">
                     <item>
-                     <widget class="QPushButton" name="btnSolar3d">
+                     <widget class="QPushButton" name="btnSolar2h">
                       <property name="maximumSize">
                        <size>
                         <width>120</width>
@@ -614,7 +660,7 @@ QPushButton{
                      </widget>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="btnSolar2h">
+                     <widget class="QPushButton" name="btnSolar3d">
                       <property name="maximumSize">
                        <size>
                         <width>120</width>
@@ -635,25 +681,256 @@ QPushButton{
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="label_solarinfo">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Solar Activity</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
+                  <widget class="QStackedWidget" name="solarPages">
+                   <widget class="QWidget" name="page_2h">
+                    <layout class="QVBoxLayout" name="verticalLayout_5">
+                     <item>
+                      <widget class="QScrollArea" name="scrollArea">
+                       <property name="widgetResizable">
+                        <bool>true</bool>
+                       </property>
+                       <widget class="QWidget" name="scrollAreaWidgetContents_2h">
+                        <property name="geometry">
+                         <rect>
+                          <x>0</x>
+                          <y>0</y>
+                          <width>480</width>
+                          <height>2457</height>
+                         </rect>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_15">
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_bz_2h" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_bt_2h" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_u_2h" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_p_2h" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_DST_2h" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_Kp_2h" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="page_1d">
+                    <layout class="QVBoxLayout" name="verticalLayout_13">
+                     <item>
+                      <widget class="QScrollArea" name="scrollArea_1d">
+                       <property name="widgetResizable">
+                        <bool>true</bool>
+                       </property>
+                       <widget class="QWidget" name="scrollAreaWidgetContents_1d">
+                        <property name="geometry">
+                         <rect>
+                          <x>0</x>
+                          <y>0</y>
+                          <width>482</width>
+                          <height>2457</height>
+                         </rect>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_20">
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_bz_1d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_bt_1d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_u_1d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_p_1d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_DST_1d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_Kp_1d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="page_3d">
+                    <layout class="QVBoxLayout" name="verticalLayout_14">
+                     <item>
+                      <widget class="QScrollArea" name="scrollArea_3d">
+                       <property name="widgetResizable">
+                        <bool>true</bool>
+                       </property>
+                       <widget class="QWidget" name="scrollAreaWidgetContents_3d">
+                        <property name="geometry">
+                         <rect>
+                          <x>0</x>
+                          <y>0</y>
+                          <width>482</width>
+                          <height>2457</height>
+                         </rect>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_21">
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_bz_3d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_bt_3d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_u_3d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_p_3d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_DST_3d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="PlotWidget" name="GraphWidget_Kp_3d" native="true">
+                           <property name="minimumSize">
+                            <size>
+                             <width>400</width>
+                             <height>400</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
                   </widget>
                  </item>
                 </layout>
@@ -665,6 +942,34 @@ QPushButton{
                  </font>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <item>
+                  <widget class="QLabel" name="label">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Weather page</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <widget class="QLabel" name="label_enterloc">
                    <property name="maximumSize">
@@ -788,6 +1093,34 @@ QPushButton{
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_18">
                  <item>
+                  <widget class="QLabel" name="label_flares">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string> flares page</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QLabel" name="label_chooseflaresperiod">
                    <property name="maximumSize">
                     <size>
@@ -835,6 +1168,7 @@ QPushButton{
                       <property name="font">
                        <font>
                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -853,6 +1187,7 @@ QPushButton{
                       <property name="font">
                        <font>
                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -871,6 +1206,7 @@ QPushButton{
                       <property name="font">
                        <font>
                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -1084,13 +1420,19 @@ QPushButton{
   <customwidget>
    <class>QCustomSlideMenu</class>
    <extends>QWidget</extends>
-   <header location="global">Custom_Widgets.Widgets.h</header>
+   <header>Custom_Widgets.Widgets.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QCustomStackedWidget</class>
    <extends>QStackedWidget</extends>
-   <header location="global">Custom_Widgets.Widgets.h</header>
+   <header>Custom_Widgets.Widgets.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">pyqtgraph</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -1,12 +1,13 @@
+import asyncio
 import sys
 
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.QtCore import QPropertyAnimation
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
 
+import pyqtgraph as pg
 import Client
 
 class MainWindow(QMainWindow):
@@ -14,9 +15,26 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         uic.loadUi("solarinterface.ui", self)
 
-        icon = QIcon()
+########################################################################################################################
+#                       Инициализация основных объектов
+########################################################################################################################
 
+        self.s2h = Client.SolarInfo()
+        self.s1d = Client.SolarInfo()
+        self.s3d = Client.SolarInfo()
+
+        self.city = ''
+        self.weather = Client.WeatherInfo()
+
+        self.f6h = Client.SolarFlares()
+        self.f1d = Client.SolarFlares()
+        self.f3d = Client.SolarFlares()
+
+########################################################################################################################
+#                       Инициализация основных кнопок
+########################################################################################################################
         # Кнопка - Notification
+        icon = QIcon()
         icon.addPixmap(QPixmap('pic/bell.png'))
         self.btnNotification.setIcon(icon)
         self.btnNotification.setIconSize(QSize(32, 32))
@@ -32,7 +50,6 @@ class MainWindow(QMainWindow):
         icon.addPixmap(QPixmap('pic/menu.png'))
         self.MenuButton.setIcon(icon)
         self.MenuButton.setIconSize(QSize(32, 32))
-
         self.changed = False
         self.MenuButton.clicked.connect(lambda: self.expand_or_collapse(self.changed))
 
@@ -69,14 +86,27 @@ class MainWindow(QMainWindow):
         self.settingsBtn.setIconSize(QSize(32, 32))
         self.settingsBtn.clicked.connect(lambda: self.mainPages.setCurrentWidget(self.page_settings))
 
+########################################################################################################################
+#                       Инициализация основных событий
+########################################################################################################################
+
+        self.btnSolar2h.clicked.connect(lambda: self.solarPages.setCurrentWidget(self.page_2h))
+        self.btnSolar1d.clicked.connect(lambda: self.solarPages.setCurrentWidget(self.page_1d))
+        self.btnSolar3d.clicked.connect(lambda: self.solarPages.setCurrentWidget(self.page_3d))
+        #
+        #self.btnWeatherCurrent.clicked.connect()
+        #self.btnWeatherForecast.clicked.connect()
+        #
+        #self.btnFlares6h.clicked.connect()
+        #self.btnFlares1d.clicked.connect()
+        #self.btnFlares3d.clicked.connect()
+
         self.show()
 
     def expand_menu(self):
-        self.leftMenuContainer.setFixedWidth(349)
-
+        self.leftMenuContainer.setFixedWidth(350)
     def collapse_menu(self):
-        self.leftMenuContainer.setFixedWidth(55)
-
+        self.leftMenuContainer.setFixedWidth(60)
     def expand_or_collapse(self, changed):
         if (not changed):
             self.collapse_menu()
@@ -85,11 +115,14 @@ class MainWindow(QMainWindow):
             self.expand_menu()
             self.changed = False
 
-
-
-if __name__ == "__main__":
+async def main():
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
 
+    window.GraphWidget_bz_2h
+
     sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    asyncio.run(main())
