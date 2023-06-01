@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>904</width>
-    <height>579</height>
+    <width>906</width>
+    <height>595</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -49,6 +49,18 @@ QPushButton{
 #headerContainer
 {
 	background-color: grey;
+}
+#label_solar, #label_weather, #label_flares{
+	border-radius: 10px;
+	background-color: #D3D3D3;
+}
+#frame_7{
+	border-radius: 10px;
+	background-color: red;
+}
+PlotWidget{
+	margin: 4px;
+	padding: 10px 10px;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -509,6 +521,43 @@ QPushButton{
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <family>8BIT WONDER(RUS BY LYAJKA)</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>server status</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_7">
+            <property name="minimumSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -545,12 +594,12 @@ QPushButton{
                 </size>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="page_solar">
                 <layout class="QVBoxLayout" name="verticalLayout_16">
                  <item>
-                  <widget class="QLabel" name="label_solarinfo">
+                  <widget class="QLabel" name="label_solar">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -572,7 +621,7 @@ QPushButton{
                    <property name="font">
                     <font>
                      <family>8BIT WONDER(RUS BY LYAJKA)</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                     </font>
                    </property>
                    <property name="text">
@@ -585,6 +634,18 @@ QPushButton{
                  </item>
                  <item>
                   <widget class="QLabel" name="label_choose">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>40</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -697,7 +758,7 @@ QPushButton{
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>480</width>
+                          <width>422</width>
                           <height>2457</height>
                          </rect>
                         </property>
@@ -780,7 +841,7 @@ QPushButton{
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>482</width>
+                          <width>422</width>
                           <height>2457</height>
                          </rect>
                         </property>
@@ -863,7 +924,7 @@ QPushButton{
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>482</width>
+                          <width>480</width>
                           <height>2457</height>
                          </rect>
                         </property>
@@ -946,7 +1007,7 @@ QPushButton{
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_17">
                  <item>
-                  <widget class="QLabel" name="label">
+                  <widget class="QLabel" name="label_weather">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -962,7 +1023,7 @@ QPushButton{
                    <property name="font">
                     <font>
                      <family>8BIT WONDER(RUS BY LYAJKA)</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                     </font>
                    </property>
                    <property name="text">
@@ -975,6 +1036,12 @@ QPushButton{
                  </item>
                  <item>
                   <widget class="QLabel" name="label_enterloc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>40</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -997,6 +1064,12 @@ QPushButton{
                  </item>
                  <item>
                   <widget class="QLineEdit" name="lineEdit_location">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>40</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -1068,19 +1141,87 @@ QPushButton{
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="label_weatherinfo">
-                   <property name="font">
-                    <font>
-                     <family>8BIT WONDER(RUS BY LYAJKA)</family>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Weather</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
+                  <widget class="QStackedWidget" name="weatherPages">
+                   <widget class="QWidget" name="page_current">
+                    <layout class="QVBoxLayout" name="verticalLayout_12">
+                     <item>
+                      <widget class="QScrollArea" name="scrollArea_2">
+                       <property name="font">
+                        <font>
+                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                        </font>
+                       </property>
+                       <property name="widgetResizable">
+                        <bool>true</bool>
+                       </property>
+                       <widget class="QWidget" name="scrollAreaWidgetContents">
+                        <property name="geometry">
+                         <rect>
+                          <x>0</x>
+                          <y>0</y>
+                          <width>501</width>
+                          <height>100</height>
+                         </rect>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_23">
+                         <item>
+                          <widget class="QLabel" name="label_weathercurrent">
+                           <property name="font">
+                            <font>
+                             <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="page_forecast">
+                    <layout class="QVBoxLayout" name="verticalLayout_22">
+                     <item>
+                      <widget class="QScrollArea" name="scrollArea_3">
+                       <property name="font">
+                        <font>
+                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                        </font>
+                       </property>
+                       <property name="widgetResizable">
+                        <bool>true</bool>
+                       </property>
+                       <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                        <property name="geometry">
+                         <rect>
+                          <x>0</x>
+                          <y>0</y>
+                          <width>501</width>
+                          <height>110</height>
+                         </rect>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_24">
+                         <item>
+                          <widget class="QLabel" name="label_weatherforecast">
+                           <property name="font">
+                            <font>
+                             <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                            </font>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
                   </widget>
                  </item>
                 </layout>
@@ -1112,7 +1253,7 @@ QPushButton{
                    <property name="font">
                     <font>
                      <family>8BIT WONDER(RUS BY LYAJKA)</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                     </font>
                    </property>
                    <property name="text">
@@ -1125,6 +1266,12 @@ QPushButton{
                  </item>
                  <item>
                   <widget class="QLabel" name="label_chooseflaresperiod">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>40</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -1171,6 +1318,7 @@ QPushButton{
                       <property name="font">
                        <font>
                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -1189,6 +1337,7 @@ QPushButton{
                       <property name="font">
                        <font>
                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="text">
@@ -1207,6 +1356,7 @@ QPushButton{
                       <property name="font">
                        <font>
                         <family>8BIT WONDER(RUS BY LYAJKA)</family>
+                        <pointsize>8</pointsize>
                        </font>
                       </property>
                       <property name="text">

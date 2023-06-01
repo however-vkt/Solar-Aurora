@@ -32,10 +32,10 @@ class SolarInfo:
 
                     except ClientConnectorError as client_err:
                         print(f'HTTP error occured: {client_err}')
-                        return client_err
+                        return ClientConnectorError
                     except Exception as err:
                         print(f'Other error occured: {err}')
-                        return err
+                        return Exception
                     else:
                         print('Success!')
                         info = await response.json(content_type='text/plain')
@@ -55,7 +55,7 @@ class SolarInfo:
                     return info
             except Exception as conn_err:
                 print(f'HTTP error occured: {conn_err}')
-                return conn_err
+                return Exception
     async def get_solarinfo_1d(self):
         async with ClientSession() as session:
             try:
@@ -68,10 +68,10 @@ class SolarInfo:
 
                     except ClientConnectorError as client_err:
                         print(f'HTTP error occured: {client_err}')
-                        return client_err
+                        return ClientConnectorError
                     except Exception as err:
                         print(f'Other error occured: {err}')
-                        return err
+                        return Exception
                     else:
                         self.dateBzBt = info.get('0')
                         self.bz = info.get('1')
@@ -89,7 +89,7 @@ class SolarInfo:
 
             except Exception as conn_err:
                 print(f'HTTP error occured: {conn_err}')
-                return conn_err
+                return Exception
     async def get_solarinfo_3d(self):
         async with ClientSession() as session:
             try:
@@ -102,10 +102,10 @@ class SolarInfo:
 
                     except ClientConnectorError as client_err:
                         print(f'HTTP error occured: {client_err}')
-                        return client_err
+                        return ClientConnectorError
                     except Exception as err:
                         print(f'Other error occured: {err}')
-                        return err
+                        return Exception
                     else:
                         print('Success!')
                         info = await response.json(content_type='text/plain')
@@ -126,7 +126,7 @@ class SolarInfo:
 
             except Exception as conn_err:
                 print(f'HTTP error occured: {conn_err}')
-                return conn_err
+                return Exception
 
 ####################################################################################################################
 #   Класс для элемента "Погода"
@@ -155,10 +155,10 @@ class WeatherInfo:
 
                     except ClientConnectorError as client_err:
                         print(f'HTTP error occured: {client_err}')
-                        return client_err
+                        return ClientConnectorError
                     except Exception as err:
                         print(f'Other error occured: {err}')
-                        return err
+                        return Exception
                     else:
                         print('Success!')
                         info = await response.json(content_type='text/plain')
@@ -175,7 +175,7 @@ class WeatherInfo:
 
             except Exception as conn_err:
                 print(f'HTTP error occured: {conn_err}')
-                return conn_err
+                return Exception
 
 ####################################################################################################################
 #   Класс для элемента "Солнечные вспышки"
@@ -199,10 +199,10 @@ class SolarFlares:
 
                     except ClientConnectorError as client_err:
                         print(f'HTTP error occured: {client_err}')
-                        return client_err
+                        return ClientConnectorError
                     except Exception as err:
                         print(f'Other error occured: {err}')
-                        return err
+                        return Exception
                     else:
                         print('Success!')
                         info = await response.json(content_type='text/plain')
@@ -214,7 +214,7 @@ class SolarFlares:
 
             except Exception as conn_err:
                 print(f'HTTP error occured: {conn_err}')
-                return conn_err
+                return Exception
     async def get_solarflares_1d(self):
         async with ClientSession() as session:
             try:
@@ -230,10 +230,10 @@ class SolarFlares:
 
                     except ClientConnectorError as client_err:
                         print(f'HTTP error occured: {client_err}')
-                        return client_err
+                        return ClientConnectorError
                     except Exception as err:
                         print(f'Other error occured: {err}')
-                        return err
+                        return Exception
                     else:
                         print('Success!')
                         info = await response.json(content_type='text/plain')
@@ -247,7 +247,7 @@ class SolarFlares:
 
             except Exception as conn_err:
                 print(f'HTTP error occured: {conn_err}')
-                return conn_err
+                return Exception
     async def get_solarflares_3d(self):
         async with ClientSession() as session:
             try:
@@ -263,10 +263,10 @@ class SolarFlares:
 
                     except ClientConnectorError as client_err:
                         print(f'HTTP error occured: {client_err}')
-                        return client_err
+                        return ClientConnectorError
                     except Exception as err:
                         print(f'Other error occured: {err}')
-                        return err
+                        return Exception
                     else:
                         print('Success!')
                         info = await response.json(content_type='text/plain')
@@ -280,7 +280,7 @@ class SolarFlares:
 
             except Exception as conn_err:
                 print(f'HTTP error occured: {conn_err}')
-                return conn_err
+                return Exception
 
 async def main():
     a = SolarInfo()

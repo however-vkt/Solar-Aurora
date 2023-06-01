@@ -1,12 +1,11 @@
 import asyncio
+from aiohttp import ClientConnectorError
 import sys
 
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon, QPixmap
-
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
-from aiohttp import ClientConnectorError
 
 import Client
 
@@ -15,21 +14,7 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         uic.loadUi("solarinterface.ui", self)
 
-########################################################################################################################
-#                       Инициализация основных объектов
-########################################################################################################################
-
-        self.s2h = Client.SolarInfo()
-        self.s1d = Client.SolarInfo()
-        self.s3d = Client.SolarInfo()
-
         self.city = ''
-        self.weather = Client.WeatherInfo()
-
-        self.f6h = Client.SolarFlares()
-        self.f1d = Client.SolarFlares()
-        self.f3d = Client.SolarFlares()
-
 ########################################################################################################################
 #                       Инициализация основных кнопок
 ########################################################################################################################
@@ -122,6 +107,9 @@ class MainWindow(QMainWindow):
         self.GraphWidget_DST_3d.setBackground('w')
         self.GraphWidget_Kp_3d.setBackground('w')
 
+        self.btnWeatherCurrent.clicked.connect(lambda: self.get_location('current'))
+        self.btnWeatherForecast.clicked.connect(lambda: self.get_location('forecast'))
+
         self.show()
 
     def expand_menu(self):
@@ -135,6 +123,15 @@ class MainWindow(QMainWindow):
         else:
             self.expand_menu()
             self.changed = False
+    def get_location(self, type):
+        self.city = self.lineEdit_location.text()
+        if (type == 'current'):
+            self.weatherPages.setCurrentWidget(self.page_current)
+            cur = Client.WeatherInfo()
+        if (type =='forecast'):
+            self.weatherPages.setCurrentWidget(self.page_forecast)
+        print(self.city)
+
 
 async def main():
     app = QApplication(sys.argv)
@@ -142,14 +139,48 @@ async def main():
     window.show()
 
     s2h = Client.SolarInfo()
-    result = await s2h.get_solarinfo_2h()
-    if (ClientConnectorError):
-        print(result)
+    s1d = Client.SolarInfo()
+    s3d = Client.SolarInfo()
+
+    weather = Client.WeatherInfo()
+
+    f6h = Client.SolarFlares()
+    f1d = Client.SolarFlares()
+    f3d = Client.SolarFlares()
+
+    result_s2h = await s2h.get_solarinfo_2h()
+    result_s1d = await s1d.get_solarinfo_1d()
+    result_s3d = await s3d.get_solarinfo_3d()
+
+    if ((Exception == result_s2h) or (Exception == result_s1d) or (Exception == result_s3d)):
+        print(f'HTTP error occured: Cannot connect to host')
+        window.frame_7.setStyleSheet("background-color:red;")
     else:
-        print(result.get('0'))
-        print(result.get('1'))
+        window.frame_7.setStyleSheet("background-color:#34C924;")
+        print(result_s2h)
+        print(result_s1d)
+        print(result_s3d)
+    #
+    #while(not window.lineEdit_location.textChanged.connect()):
+    #    if (window.city == ''):
+    #        window.label_weathercurrent.setText('Error:\nCity not specified or another error occurred')
+    #        window.label_weatherforecast.setText('Error:\nCity not specified or another error occurred')
+    #        result_w = 0
+    #    else:
+    #        result_w = await weather.get_weather(window.city)
+    #
+    #if (Exception == result_w):
+    #    print(f'HTTP error occured: Cannot connect to host')
+    #    window.frame_7.setStyleSheet("background-color:red;")
+    #else:
+    #    window.frame_7.setStyleSheet("background-color:#34C924;")
+    #    print(result_w)
+    ##result_f6h = await f6h.get_solarflares_6h()
+    #result_f1d = await f1d.get_solarflares_1d()
+    #result_f3d = await f3d.get_solarflares_3d()
 
     sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
     asyncio.run(main())
