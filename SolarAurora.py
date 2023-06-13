@@ -1,5 +1,4 @@
-import asyncio
-from aiohttp import ClientConnectorError
+import requests
 import sys
 
 from PyQt5.QtCore import QSize
@@ -132,55 +131,9 @@ class MainWindow(QMainWindow):
             self.weatherPages.setCurrentWidget(self.page_forecast)
         print(self.city)
 
-
-async def main():
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
 
-    s2h = Client.SolarInfo()
-    s1d = Client.SolarInfo()
-    s3d = Client.SolarInfo()
-
-    weather = Client.WeatherInfo()
-
-    f6h = Client.SolarFlares()
-    f1d = Client.SolarFlares()
-    f3d = Client.SolarFlares()
-
-    result_s2h = await s2h.get_solarinfo_2h()
-    result_s1d = await s1d.get_solarinfo_1d()
-    result_s3d = await s3d.get_solarinfo_3d()
-
-    if ((Exception == result_s2h) or (Exception == result_s1d) or (Exception == result_s3d)):
-        print(f'HTTP error occured: Cannot connect to host')
-        window.frame_7.setStyleSheet("background-color:red;")
-    else:
-        window.frame_7.setStyleSheet("background-color:#34C924;")
-        print(result_s2h)
-        print(result_s1d)
-        print(result_s3d)
-    #
-    #while(not window.lineEdit_location.textChanged.connect()):
-    #    if (window.city == ''):
-    #        window.label_weathercurrent.setText('Error:\nCity not specified or another error occurred')
-    #        window.label_weatherforecast.setText('Error:\nCity not specified or another error occurred')
-    #        result_w = 0
-    #    else:
-    #        result_w = await weather.get_weather(window.city)
-    #
-    #if (Exception == result_w):
-    #    print(f'HTTP error occured: Cannot connect to host')
-    #    window.frame_7.setStyleSheet("background-color:red;")
-    #else:
-    #    window.frame_7.setStyleSheet("background-color:#34C924;")
-    #    print(result_w)
-    ##result_f6h = await f6h.get_solarflares_6h()
-    #result_f1d = await f1d.get_solarflares_1d()
-    #result_f3d = await f3d.get_solarflares_3d()
-
     sys.exit(app.exec_())
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
