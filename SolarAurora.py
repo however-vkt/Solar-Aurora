@@ -77,6 +77,7 @@ class MainWindow(QMainWindow):
         self.btnSolar2h.clicked.connect(lambda: self.solarPages.setCurrentWidget(self.page_2h))
         self.btnSolar1d.clicked.connect(lambda: self.solarPages.setCurrentWidget(self.page_1d))
         self.btnSolar3d.clicked.connect(lambda: self.solarPages.setCurrentWidget(self.page_3d))
+
         #
         #self.btnWeatherCurrent.clicked.connect()
         #self.btnWeatherForecast.clicked.connect()
@@ -109,13 +110,27 @@ class MainWindow(QMainWindow):
         self.btnWeatherCurrent.clicked.connect(lambda: self.get_location('current'))
         self.btnWeatherForecast.clicked.connect(lambda: self.get_location('forecast'))
 
+        self.raise_server_status()
+
         self.show()
+
+    def raise_server_status(self):
+        url = f'http://localhost:8080/solarinfo?tag=s2h'
+        try:
+            print("checking status")
+            req = requests.get(url)
+            req.raise_for_status()
+            self.frame_7.setStyleSheet("background-color:#34C924;")
+        except Exception as ex:
+            self.frame_7.setStyleSheet("background-color:red;")
+            print(ex)
 
     def expand_menu(self):
         self.leftMenuContainer.setFixedWidth(350)
     def collapse_menu(self):
         self.leftMenuContainer.setFixedWidth(60)
     def expand_or_collapse(self, changed):
+        self.raise_server_status()
         if (not changed):
             self.collapse_menu()
             self.changed = True
@@ -123,13 +138,18 @@ class MainWindow(QMainWindow):
             self.expand_menu()
             self.changed = False
     def get_location(self, type):
+        self.raise_server_status()
         self.city = self.lineEdit_location.text()
         if (type == 'current'):
             self.weatherPages.setCurrentWidget(self.page_current)
             cur = Client.WeatherInfo()
+            cur.get_weather(self.city)
+            self.label_weathercurrent.setText(cur.get_info_cur())
         if (type =='forecast'):
             self.weatherPages.setCurrentWidget(self.page_forecast)
-        print(self.city)
+            forecast = Client.WeatherInfo()
+            forecast.get_weather(self.city)
+            self.label_weatherforecast.setText(forecast.get_info_forecast())
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

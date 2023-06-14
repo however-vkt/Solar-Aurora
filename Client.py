@@ -33,7 +33,7 @@ class SolarInfo:
         except Exception as err:
             print(f'Other error occured: {err}')
         else:
-            print('Success!')
+            print('Success!\n')
             req = requests.get(url)
             info = req.json()
 
@@ -48,7 +48,6 @@ class SolarInfo:
             self.Kp = info.get('8')
             self.KpType = info.get('9')
 
-            print(info)
             return info
     def get_solarinfo_1d(self):
         # запрашиваем данные у NOAA
@@ -63,7 +62,7 @@ class SolarInfo:
         except Exception as err:
             print(f'Other error occured: {err}')
         else:
-            print('Success!')
+            print('Success!\n')
             req = requests.get(url)
             info = req.json()
 
@@ -78,7 +77,6 @@ class SolarInfo:
             self.Kp = info.get('8')
             self.KpType = info.get('9')
 
-            print(info)
             return info
     def get_solarinfo_3d(self):
         # запрашиваем данные у NOAA
@@ -93,7 +91,7 @@ class SolarInfo:
         except Exception as err:
             print(f'Other error occured: {err}')
         else:
-            print('Success!')
+            print('Success!\n')
             req = requests.get(url)
             info = req.json()
 
@@ -108,7 +106,6 @@ class SolarInfo:
             self.Kp = info.get('8')
             self.KpType = info.get('9')
 
-            print(info)
             return info
 
     def get_info(self):
@@ -123,15 +120,14 @@ class SolarInfo:
 class WeatherInfo:
     def __init__(self):
         # Данные собираются с WeatherAPI.com
+        self.weather = ""
         self.location = dict()
         self.current = dict()
         self.forecast = dict()
 
     def get_weather(self, city):
-        print(city)
-
         url = f'http://localhost:8080/weather'
-        params ={'city': city}
+        params = {'city': city}
         try:
             req = requests.get(url, params=params)
             # Если ответ успешен, то исключения задействованы не будут
@@ -141,22 +137,28 @@ class WeatherInfo:
         except Exception as err:
             print(f'Other error occured: {err}')
         else:
-            print('Success!')
+            print('Success!\n')
             req = requests.get(url, params=params)
             info = req.json()
 
             self.location = info.get('0')
-            self.current = info.get('1')
-            self.forecast = info.get('2')
+            self.current = info['1']
+            self.forecast = info['2']['forecastday'][0]['day']
+            self.weather = info['2']['forecastday'][0]['day']['condition']['text']
 
-            print(self.location)
-            print(self.current)
-            print(self.forecast)
             info = {'location': self.location, 'current': self.current, 'forecast': self.forecast}
             return info
 
-    def get_info(self):
-        s = str(self.location) + "\n" + str(self.current) + "\n" + str(self.forecast) + "\n\n"
+    def get_info_cur(self):
+        s = "Name: " + str(self.location.get('name')) + "\n" + "Region: " + str(self.location.get('region')) + "\n" + "Country: " + str(self.location.get('country')) + "\n" + "Local time: " + str(self.location.get('localtime'))
+        s += "\n\n" + "Temp C: " + str(self.current.get('temp_c')) + "\n" + "Feels like: " + str(self.current.get('feelslike_c')) + "\n" + "Humidity: " + str(self.current.get('humidity')) + "\n" + "Cloud: " + str(self.current.get('cloud')) + "\n" + "Wind: " + str(self.current.get('wind_kph')) + "\n\n"
+        return s
+
+    def get_info_forecast(self):
+        s = "Max temperature C: " + str(self.forecast.get('maxtemp_c')) + "\n" + "Minimal temperature C: " + str(self.forecast.get('mintemp_c')) + "\n"
+        s += "Average temperature C: " + str(self.forecast.get('avgtemp_c')) + "\n" + "Average humidity: " + str(self.forecast.get('avghumidity')) + "\n"
+        s += "Daily chance of rain: " + str(self.forecast.get('daily_chance_of_rain')) + "\n" + "Weather: " + str(self.weather)
+        s += "\n\n"
         return s
 
 ####################################################################################################################
@@ -179,13 +181,12 @@ class SolarFlares:
         except Exception as err:
             print(f'Other error occured: {err}')
         else:
-            print('Success!')
+            print('Success!\n')
             req = requests.get(url)
             info = req.json()
             self.date = info.get('0')
             self.flux = info.get('1')
-            print(self.date)
-            print(self.flux)
+
             return info
     def get_solarflares_1d(self):
         # запрашиваем данные у NOAA
@@ -199,13 +200,12 @@ class SolarFlares:
         except Exception as err:
             print(f'Other error occured: {err}')
         else:
-            print('Success!')
+            print('Success!\n')
             req = requests.get(url)
             info = req.json()
             self.date = info.get('0')
             self.flux = info.get('1')
-            print(self.date)
-            print(self.flux)
+
             return info
 
     def get_solarflares_3d(self):
@@ -220,13 +220,12 @@ class SolarFlares:
         except Exception as err:
             print(f'Other error occured: {err}')
         else:
-            print('Success!')
+            print('Success!\n')
             req = requests.get(url)
             info = req.json()
             self.date = info.get('0')
             self.flux = info.get('1')
-            print(self.date)
-            print(self.flux)
+
             return info
 
     def get_info(self):
@@ -246,4 +245,6 @@ if __name__ == '__main__':
 
     print(a.get_info())
     print(b.get_info())
-    print(c.get_info())
+
+    print(c.get_info_cur())
+    print(c.get_info_forecast())
