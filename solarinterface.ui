@@ -594,7 +594,7 @@ PlotWidget{
                 </size>
                </property>
                <property name="currentIndex">
-                <number>1</number>
+                <number>3</number>
                </property>
                <widget class="QWidget" name="page_solar">
                 <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -758,7 +758,7 @@ PlotWidget{
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>422</width>
+                          <width>480</width>
                           <height>2457</height>
                          </rect>
                         </property>
@@ -1175,6 +1175,9 @@ PlotWidget{
                            <property name="text">
                             <string/>
                            </property>
+                           <property name="wordWrap">
+                            <bool>true</bool>
+                           </property>
                           </widget>
                          </item>
                         </layout>
@@ -1232,7 +1235,7 @@ PlotWidget{
                             <string/>
                            </property>
                            <property name="wordWrap">
-                            <bool>false</bool>
+                            <bool>true</bool>
                            </property>
                            <property name="margin">
                             <number>0</number>
@@ -1419,7 +1422,7 @@ PlotWidget{
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
-                  <widget class="QLabel" name="label_15">
+                  <widget class="QLabel" name="label_settings">
                    <property name="font">
                     <font>
                      <family>8BIT WONDER(RUS BY LYAJKA)</family>
@@ -1430,7 +1433,10 @@ PlotWidget{
                     <string>Settings</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignCenter</set>
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -1439,7 +1445,7 @@ PlotWidget{
                <widget class="QWidget" name="page_info">
                 <layout class="QVBoxLayout" name="verticalLayout_8">
                  <item>
-                  <widget class="QLabel" name="label_16">
+                  <widget class="QLabel" name="label_info">
                    <property name="font">
                     <font>
                      <family>8BIT WONDER(RUS BY LYAJKA)</family>
@@ -1450,7 +1456,10 @@ PlotWidget{
                     <string>Information</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignCenter</set>
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -1459,7 +1468,7 @@ PlotWidget{
                <widget class="QWidget" name="page_help">
                 <layout class="QVBoxLayout" name="verticalLayout_6">
                  <item>
-                  <widget class="QLabel" name="label_17">
+                  <widget class="QLabel" name="label_help">
                    <property name="font">
                     <font>
                      <family>8BIT WONDER(RUS BY LYAJKA)</family>
@@ -1470,7 +1479,10 @@ PlotWidget{
                     <string>Help</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignCenter</set>
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                   </property>
+                   <property name="wordWrap">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -1571,6 +1583,9 @@ PlotWidget{
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>

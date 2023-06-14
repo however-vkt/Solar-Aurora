@@ -14,6 +14,23 @@ class MainWindow(QMainWindow):
         uic.loadUi("solarinterface.ui", self)
 
         self.city = ''
+
+        self.label_info.setText("Bz indicates the orientation of the IMF.\n\n" +
+            "Bt - parameter that showing the interplanetary magnetic field ( IMF ).\n\n" +
+            "u - cosmic wind speed.\n\n" +
+            "p - solar flux density.\n\n" +
+            "DST - temporary recession index.\n\n" +
+            "Kp-index is the global geomagnetic activity index that is based on 3-hour measurements" +
+            "from ground-based magnetometers around the world.\n\n\n" +
+            "A notification pops up for aurora monitoring when 3 conditions match:\n\n\n" +
+            "Kp >= 5 ( non-priority )\n\n" +
+            "p > 20\n\n" +
+            "u > 500\n\n" +
+            "bz <= -10\n\n" +
+            "average bz for the last hour < 0\n\n")
+
+        self.label_settings.setText("There will be screen size settings\n\nLight/Dark theme feature\n\n"+
+                                   "Notification volume control\n\nNotification style control")
 ########################################################################################################################
 #                       Инициализация основных кнопок
 ########################################################################################################################

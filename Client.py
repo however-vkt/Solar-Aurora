@@ -150,15 +150,18 @@ class WeatherInfo:
             return info
 
     def get_info_cur(self):
-        s = "Name: " + str(self.location.get('name')) + "\n" + "Region: " + str(self.location.get('region')) + "\n" + "Country: " + str(self.location.get('country')) + "\n" + "Local time: " + str(self.location.get('localtime'))
-        s += "\n\n" + "Temp C: " + str(self.current.get('temp_c')) + "\n" + "Feels like: " + str(self.current.get('feelslike_c')) + "\n" + "Humidity: " + str(self.current.get('humidity')) + "\n" + "Cloud: " + str(self.current.get('cloud')) + "\n" + "Wind: " + str(self.current.get('wind_kph')) + "\n\n"
+        s = "Name: " + str(self.location.get('name')) + "\n\n" + "Region: " + str(self.location.get('region'))
+        s += "\n\n" + "Country: " + str(self.location.get('country')) + "\n\n" + "Local time: " + str(self.location.get('localtime'))
+        s += "\n\n\n" + "Temp C: " + str(self.current.get('temp_c')) + "\n\n" + "Feels like: "
+        s += str(self.current.get('feelslike_c')) + "\n\n" + "Humidity: " + str(self.current.get('humidity'))
+        s += "\n\n" + "Cloud: " + str(self.current.get('cloud')) + "\n\n" + "Wind: " + str(self.current.get('wind_kph'))
         return s
 
     def get_info_forecast(self):
-        s = "Max temperature C: " + str(self.forecast.get('maxtemp_c')) + "\n" + "Minimal temperature C: " + str(self.forecast.get('mintemp_c')) + "\n"
-        s += "Average temperature C: " + str(self.forecast.get('avgtemp_c')) + "\n" + "Average humidity: " + str(self.forecast.get('avghumidity')) + "\n"
-        s += "Daily chance of rain: " + str(self.forecast.get('daily_chance_of_rain')) + "\n" + "Weather: " + str(self.weather)
-        s += "\n\n"
+        s = "Max temperature C: " + str(self.forecast.get('maxtemp_c')) + "\n\n" + "Minimal temperature C: " + str(self.forecast.get('mintemp_c')) + "\n\n"
+        s += "Average temperature C: " + str(self.forecast.get('avgtemp_c')) + "\n\n" + "Average humidity: " + str(self.forecast.get('avghumidity')) + "\n\n"
+        s += "Daily chance of rain: " + str(self.forecast.get('daily_chance_of_rain')) + "\n\n" + "Weather: " + str(self.weather)
+        s += "\n\n\n"
         return s
 
 ####################################################################################################################
