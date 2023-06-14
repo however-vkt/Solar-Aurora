@@ -31,6 +31,10 @@ class MainWindow(QMainWindow):
 
         self.label_settings.setText("There will be screen size settings\n\nLight/Dark theme feature\n\n"+
                                    "Notification volume control\n\nNotification style control")
+
+        self.label_help.setText("The application was created to monitoring solar activity and forecasting auroras\n\n" +
+                                "There is email to receive feedback:\n\n\n" +
+                                "however.viktor@gmail.com")
 ########################################################################################################################
 #                       Инициализация основных кнопок
 ########################################################################################################################

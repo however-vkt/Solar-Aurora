@@ -7,6 +7,8 @@ from requests import HTTPError
 ####################################################################################################################
 class SolarInfo:
     def __init__(self):
+        self.status = ""
+
         self.dateBzBt = list()  # Дата со спутника (для bz, bt)
         self.dateUP = list()  # Дата со спутника (для u, p)
         self.dateDST = list()  # Дата для DST
@@ -112,6 +114,10 @@ class SolarInfo:
         s = str(self.dateBzBt) + "\n" + str(self.bz) + "\n" + str(self.bt) + "\n" + str(self.u) + "\n" + str(self.p) + "\n" + str(self.dateDST) + "\n" + str(self.DST) + "\n" + str(self.dateKp) + "\n" + str(self.Kp) + "\n" + str(self.KpType) + "\n\n"
         return s
 
+    def check_situation(self):
+
+
+        return self.status
 ####################################################################################################################
 #   Класс для элемента "Погода"
 ####################################################################################################################
