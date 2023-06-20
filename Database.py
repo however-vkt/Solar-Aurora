@@ -219,7 +219,7 @@ async def get_solarinfo_2h():
     async with ClientSession() as session:
         # запрашиваем данные у NOAA
         url = 'https://services.swpc.noaa.gov/products/solar-wind/mag-2-hour.json'
-        dictionary = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
+        dictionary = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: []}
 
         async with session.get(url=url) as response:
             try:
@@ -261,6 +261,7 @@ async def get_solarinfo_2h():
                     if flag != 0:
                         dictionary[3].append(data[1])
                         dictionary[4].append(data[2])
+                        dictionary[10].append(data[0])
                     flag = 1
         url = 'https://services.swpc.noaa.gov/products/kyoto-dst.json'
         async with session.get(url=url) as response:
@@ -319,7 +320,7 @@ async def get_solarinfo_1d():
     async with ClientSession() as session:
         # запрашиваем данные у NOAA
         url = 'https://services.swpc.noaa.gov/products/solar-wind/mag-1-day.json'
-        dictionary = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
+        dictionary = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: []}
 
         async with session.get(url=url) as response:
             try:
@@ -361,6 +362,7 @@ async def get_solarinfo_1d():
                     if flag != 0:
                         dictionary[3].append(data[1])
                         dictionary[4].append(data[2])
+                        dictionary[10].append(data[0])
                     flag = 1
         url = 'https://services.swpc.noaa.gov/products/kyoto-dst.json'
         async with session.get(url=url) as response:
@@ -419,7 +421,7 @@ async def get_solarinfo_3d():
     async with ClientSession() as session:
         # запрашиваем данные у NOAA
         url = 'https://services.swpc.noaa.gov/products/solar-wind/mag-3-day.json'
-        dictionary = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
+        dictionary = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: []}
 
         async with session.get(url=url) as response:
             try:
@@ -461,6 +463,7 @@ async def get_solarinfo_3d():
                     if flag != 0:
                         dictionary[3].append(data[1])
                         dictionary[4].append(data[2])
+                        dictionary[10].append(data[0])
                     flag = 1
         url = 'https://services.swpc.noaa.gov/products/kyoto-dst.json'
         async with session.get(url=url) as response:

@@ -1,3 +1,5 @@
+import datetime as dt
+
 import requests
 from requests import HTTPError
 
@@ -49,6 +51,7 @@ class SolarInfo:
             self.dateKp = info.get('7')
             self.Kp = info.get('8')
             self.KpType = info.get('9')
+            self.dateUP = info.get('10')
 
             return info
     def get_solarinfo_1d(self):
@@ -78,6 +81,7 @@ class SolarInfo:
             self.dateKp = info.get('7')
             self.Kp = info.get('8')
             self.KpType = info.get('9')
+            self.dateUP = info.get('10')
 
             return info
     def get_solarinfo_3d(self):
@@ -107,6 +111,7 @@ class SolarInfo:
             self.dateKp = info.get('7')
             self.Kp = info.get('8')
             self.KpType = info.get('9')
+            self.dateUP = info.get('10')
 
             return info
 
@@ -115,7 +120,7 @@ class SolarInfo:
         return s
 
     def check_situation(self):
-
+        
 
         return self.status
 ####################################################################################################################
@@ -257,3 +262,5 @@ if __name__ == '__main__':
 
     print(c.get_info_cur())
     print(c.get_info_forecast())
+
+    print(a.dateUP)

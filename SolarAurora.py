@@ -8,6 +8,11 @@ from PyQt5.QtWidgets import *
 
 import Client
 
+import pandas as pd
+import numpy as np
+
+from matplotlib import *
+
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self)
@@ -95,9 +100,9 @@ class MainWindow(QMainWindow):
 #                       Инициализация основных событий
 ########################################################################################################################
 
-        self.btnSolar2h.clicked.connect(lambda: self.solarPages.setCurrentWidget(self.page_2h))
-        self.btnSolar1d.clicked.connect(lambda: self.solarPages.setCurrentWidget(self.page_1d))
-        self.btnSolar3d.clicked.connect(lambda: self.solarPages.setCurrentWidget(self.page_3d))
+        self.btnSolar2h.clicked.connect(lambda: self.get_graphics_solarinfo('2h'))
+        self.btnSolar1d.clicked.connect(lambda: self.get_graphics_solarinfo('1d'))
+        self.btnSolar3d.clicked.connect(lambda: self.get_graphics_solarinfo('3d'))
 
         #
         #self.btnWeatherCurrent.clicked.connect()
@@ -108,25 +113,118 @@ class MainWindow(QMainWindow):
         #self.btnFlares3d.clicked.connect()
 
         self.GraphWidget_bz_2h.setBackground('w')
+        self.GraphWidget_bz_2h.setTitle('Bz(Date)')
+        self.GraphWidget_bz_2h.setLabel('left', 'Bz')
+        self.GraphWidget_bz_2h.setLabel('bottom', 'Date')
+        self.GraphWidget_bz_2h.addLine(x=None, y=0, pen='black')
+        self.GraphWidget_bz_2h.addLine(x=None, y=10, pen='red')
+        self.GraphWidget_bz_2h.addLine(x=None, y=-10, pen='red')
+
         self.GraphWidget_bt_2h.setBackground('w')
+        self.GraphWidget_bt_2h.setTitle('Bt(Date)')
+        self.GraphWidget_bt_2h.setLabel('left', 'Bt')
+        self.GraphWidget_bt_2h.setLabel('bottom', 'Date')
+        self.GraphWidget_bt_2h.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_u_2h.setBackground('w')
+        self.GraphWidget_u_2h.setTitle('u(Date)')
+        self.GraphWidget_u_2h.setLabel('left', 'u')
+        self.GraphWidget_u_2h.setLabel('bottom', 'Date')
+        self.GraphWidget_u_2h.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_p_2h.setBackground('w')
+        self.GraphWidget_p_2h.setTitle('p(Date)')
+        self.GraphWidget_p_2h.setLabel('left', 'p')
+        self.GraphWidget_p_2h.setLabel('bottom', 'Date')
+        self.GraphWidget_p_2h.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_DST_2h.setBackground('w')
+        self.GraphWidget_DST_2h.setTitle('DST(Date)')
+        self.GraphWidget_DST_2h.setLabel('left', 'DST')
+        self.GraphWidget_DST_2h.setLabel('bottom', 'Date')
+        self.GraphWidget_DST_2h.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_Kp_2h.setBackground('w')
+        self.GraphWidget_Kp_2h.setTitle('Kp(Date)')
+        self.GraphWidget_Kp_2h.setLabel('left', 'Kp')
+        self.GraphWidget_Kp_2h.setLabel('bottom', 'Date')
+        self.GraphWidget_Kp_2h.addLine(x=None, y=0, pen='black')
 
         self.GraphWidget_bz_1d.setBackground('w')
+        self.GraphWidget_bz_1d.setTitle('Bz(Date)')
+        self.GraphWidget_bz_1d.setLabel('left', 'Bz')
+        self.GraphWidget_bz_1d.setLabel('bottom', 'Date')
+        self.GraphWidget_bz_1d.addLine(x=None, y=0, pen='black')
+        self.GraphWidget_bz_1d.addLine(x=None, y=10, pen='red')
+        self.GraphWidget_bz_1d.addLine(x=None, y=-10, pen='red')
+
         self.GraphWidget_bt_1d.setBackground('w')
+        self.GraphWidget_bt_1d.setTitle('Bt(Date)')
+        self.GraphWidget_bt_1d.setLabel('left', 'Bt')
+        self.GraphWidget_bt_1d.setLabel('bottom', 'Date')
+        self.GraphWidget_bt_1d.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_u_1d.setBackground('w')
+        self.GraphWidget_u_1d.setTitle('u(Date)')
+        self.GraphWidget_u_1d.setLabel('left', 'u')
+        self.GraphWidget_u_1d.setLabel('bottom', 'Date')
+        self.GraphWidget_u_1d.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_p_1d.setBackground('w')
+        self.GraphWidget_p_1d.setTitle('p(Date)')
+        self.GraphWidget_p_1d.setLabel('left', 'p')
+        self.GraphWidget_p_1d.setLabel('bottom', 'Date')
+        self.GraphWidget_p_1d.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_DST_1d.setBackground('w')
+        self.GraphWidget_DST_1d.setTitle('DST(Date)')
+        self.GraphWidget_DST_1d.setLabel('left', 'DST')
+        self.GraphWidget_DST_1d.setLabel('bottom', 'Date')
+        self.GraphWidget_DST_1d.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_Kp_1d.setBackground('w')
+        self.GraphWidget_Kp_1d.setTitle('Kp(Date)')
+        self.GraphWidget_Kp_1d.setLabel('left', 'Kp')
+        self.GraphWidget_Kp_1d.setLabel('bottom', 'Date')
+        self.GraphWidget_Kp_1d.addLine(x=None, y=0, pen='black')
 
         self.GraphWidget_bz_3d.setBackground('w')
+        self.GraphWidget_bz_3d.setTitle('Bz(Date)')
+        self.GraphWidget_bz_3d.setLabel('left', 'Bz')
+        self.GraphWidget_bz_3d.setLabel('bottom', 'Date')
+        self.GraphWidget_bz_3d.addLine(x=None, y=0, pen='black')
+        self.GraphWidget_bz_3d.addLine(x=None, y=10, pen='red')
+        self.GraphWidget_bz_3d.addLine(x=None, y=-10, pen='red')
+
         self.GraphWidget_bt_3d.setBackground('w')
+        self.GraphWidget_bt_3d.setTitle('Bt(Date)')
+        self.GraphWidget_bt_3d.setLabel('left', 'Bt')
+        self.GraphWidget_bt_3d.setLabel('bottom', 'Date')
+        self.GraphWidget_bt_3d.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_u_3d.setBackground('w')
+        self.GraphWidget_u_3d.setTitle('u(Date)')
+        self.GraphWidget_u_3d.setLabel('left', 'u')
+        self.GraphWidget_u_3d.setLabel('bottom', 'Date')
+        self.GraphWidget_u_3d.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_p_3d.setBackground('w')
+        self.GraphWidget_p_3d.setTitle('p(Date)')
+        self.GraphWidget_p_3d.setLabel('left', 'p')
+        self.GraphWidget_p_3d.setLabel('bottom', 'Date')
+        self.GraphWidget_p_3d.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_DST_3d.setBackground('w')
+        self.GraphWidget_DST_3d.setTitle('DST(Date)')
+        self.GraphWidget_DST_3d.setLabel('left', 'DST')
+        self.GraphWidget_DST_3d.setLabel('bottom', 'Date')
+        self.GraphWidget_DST_3d.addLine(x=None, y=0, pen='black')
+
         self.GraphWidget_Kp_3d.setBackground('w')
+        self.GraphWidget_Kp_3d.setTitle('Kp(Date)')
+        self.GraphWidget_Kp_3d.setLabel('left', 'Kp')
+        self.GraphWidget_Kp_3d.setLabel('bottom', 'Date')
+        self.GraphWidget_Kp_3d.addLine(x=None, y=0, pen='black')
 
         self.btnWeatherCurrent.clicked.connect(lambda: self.get_location('current'))
         self.btnWeatherForecast.clicked.connect(lambda: self.get_location('forecast'))
@@ -171,6 +269,131 @@ class MainWindow(QMainWindow):
             forecast = Client.WeatherInfo()
             forecast.get_weather(self.city)
             self.label_weatherforecast.setText(forecast.get_info_forecast())
+    def get_graphics_solarinfo(self, type):
+        self.raise_server_status()
+        if (type == '2h'):
+            self.solarPages.setCurrentWidget(self.page_2h)
+
+            s2h = Client.SolarInfo()
+            s2h.get_solarinfo_2h()
+
+            date_merge = pd.DataFrame({"longtime": s2h.dateBzBt, "value": s2h.bz})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(date_merge["value"], dtype=float)
+            self.GraphWidget_bz_2h.plot(y,  kind="scatter", pen='black', axisItems={'bottom': s2h.dateBzBt})
+            self.GraphWidget_bz_2h.plotItem.setMouseEnabled(x=False, y=False)
+
+            y = np.array(s2h.bt, dtype=float)
+            self.GraphWidget_bt_2h.plot(x, y,  kind="scatter", pen='black')
+            self.GraphWidget_bt_2h.plotItem.setMouseEnabled(x=False, y=False)
+
+            date_merge = pd.DataFrame({"longtime": s2h.dateUP, "value": s2h.u})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(s2h.u, dtype=float)
+            self.GraphWidget_u_2h.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_u_2h.plotItem.setMouseEnabled(x=False, y=False)
+
+            y = np.array(s2h.p, dtype=float)
+            self.GraphWidget_p_2h.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_p_2h.plotItem.setMouseEnabled(x=False, y=False)
+
+            date_merge = pd.DataFrame({"longtime": s2h.dateDST, "value": s2h.DST})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(s2h.DST, dtype=float)
+            self.GraphWidget_DST_2h.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_DST_2h.plotItem.setMouseEnabled(x=False, y=False)
+
+            date_merge = pd.DataFrame({"longtime": s2h.dateKp, "value": s2h.Kp})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(s2h.Kp, dtype=float)
+            self.GraphWidget_Kp_2h.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_Kp_2h.plotItem.setMouseEnabled(x=False, y=False)
+        if (type == '1d'):
+            self.solarPages.setCurrentWidget(self.page_1d)
+
+            s1d = Client.SolarInfo()
+            s1d.get_solarinfo_1d()
+
+            date_merge = pd.DataFrame({"longtime": s1d.dateBzBt, "value": s1d.bz})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(date_merge["value"], dtype=float)
+            self.GraphWidget_bz_1d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_bz_1d.plotItem.setMouseEnabled(x=False, y=False)
+
+            y = np.array(s1d.bt, dtype=float)
+            self.GraphWidget_bt_1d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_bt_1d.plotItem.setMouseEnabled(x=False, y=False)
+
+            date_merge = pd.DataFrame({"longtime": s1d.dateUP, "value": s1d.u})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(s1d.u, dtype=float)
+            self.GraphWidget_u_1d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_u_1d.plotItem.setMouseEnabled(x=False, y=False)
+
+            y = np.array(s1d.p, dtype=float)
+            self.GraphWidget_p_1d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_p_1d.plotItem.setMouseEnabled(x=False, y=False)
+
+            date_merge = pd.DataFrame({"longtime": s1d.dateDST, "value": s1d.DST})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(s1d.DST, dtype=float)
+            self.GraphWidget_DST_1d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_DST_1d.plotItem.setMouseEnabled(x=False, y=False)
+
+            date_merge = pd.DataFrame({"longtime": s1d.dateKp, "value": s1d.Kp})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(s1d.Kp, dtype=float)
+            self.GraphWidget_Kp_1d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_Kp_1d.plotItem.setMouseEnabled(x=False, y=False)
+        if (type == '3d'):
+            self.solarPages.setCurrentWidget(self.page_3d)
+
+            s3d = Client.SolarInfo()
+            s3d.get_solarinfo_3d()
+
+            date_merge = pd.DataFrame({"longtime": s3d.dateBzBt, "value": s3d.bz})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(date_merge["value"], dtype=float)
+            self.GraphWidget_bz_3d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_bz_3d.plotItem.setMouseEnabled(x=False, y=False)
+
+            y = np.array(s3d.bt, dtype=float)
+            self.GraphWidget_bt_3d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_bt_3d.plotItem.setMouseEnabled(x=False, y=False)
+
+            date_merge = pd.DataFrame({"longtime": s3d.dateUP, "value": s3d.u})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(s3d.u, dtype=float)
+            self.GraphWidget_u_3d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_u_3d.plotItem.setMouseEnabled(x=False, y=False)
+
+            y = np.array(s3d.p, dtype=float)
+            self.GraphWidget_p_3d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_p_3d.plotItem.setMouseEnabled(x=False, y=False)
+
+            date_merge = pd.DataFrame({"longtime": s3d.dateDST, "value": s3d.DST})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(s3d.DST, dtype=float)
+            self.GraphWidget_DST_3d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_DST_3d.plotItem.setMouseEnabled(x=False, y=False)
+
+            date_merge = pd.DataFrame({"longtime": s3d.dateKp, "value": s3d.Kp})
+            date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            x = date_merge["longtime"]
+            y = np.array(s3d.Kp, dtype=float)
+            self.GraphWidget_Kp_3d.plot(x, y, kind="scatter", pen='black')
+            self.GraphWidget_Kp_3d.plotItem.setMouseEnabled(x=False, y=False)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
