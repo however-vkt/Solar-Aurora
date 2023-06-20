@@ -281,7 +281,7 @@ class MainWindow(QMainWindow):
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
             x = date_merge["longtime"]
             y = np.array(date_merge["value"], dtype=float)
-            self.GraphWidget_bz_2h.plot(y,  kind="scatter", pen='black', axisItems={'bottom': s2h.dateBzBt})
+            self.GraphWidget_bz_2h.plot(x, y,  kind="scatter", pen='black')
             self.GraphWidget_bz_2h.plotItem.setMouseEnabled(x=False, y=False)
 
             y = np.array(s2h.bt, dtype=float)
