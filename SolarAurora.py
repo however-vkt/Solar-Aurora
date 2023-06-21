@@ -104,6 +104,10 @@ class MainWindow(QMainWindow):
         self.btnSolar1d.clicked.connect(lambda: self.get_graphics_solarinfo('1d'))
         self.btnSolar3d.clicked.connect(lambda: self.get_graphics_solarinfo('3d'))
 
+        self.btnFlares6h.clicked.connect(lambda: self.get_graphics_flares('6h'))
+        self.btnFlares1d.clicked.connect(lambda: self.get_graphics_flares('1d'))
+        self.btnFlares3d.clicked.connect(lambda: self.get_graphics_flares('3d'))
+
         #
         #self.btnWeatherCurrent.clicked.connect()
         #self.btnWeatherForecast.clicked.connect()
@@ -226,6 +230,26 @@ class MainWindow(QMainWindow):
         self.GraphWidget_Kp_3d.setLabel('bottom', 'Date')
         self.GraphWidget_Kp_3d.addLine(x=None, y=0, pen='black')
 
+        #
+
+        self.GraphWidget_flares_6h.setBackground('w')
+        self.GraphWidget_flares_6h.setTitle('Kp(Date)')
+        self.GraphWidget_flares_6h.setLabel('left', 'Kp')
+        self.GraphWidget_flares_6h.setLabel('bottom', 'Date')
+        self.GraphWidget_flares_6h.addLine(x=None, y=0, pen='black')
+
+        self.GraphWidget_flares_1d.setBackground('w')
+        self.GraphWidget_flares_1d.setTitle('Kp(Date)')
+        self.GraphWidget_flares_1d.setLabel('left', 'Kp')
+        self.GraphWidget_flares_1d.setLabel('bottom', 'Date')
+        self.GraphWidget_flares_1d.addLine(x=None, y=0, pen='black')
+
+        self.GraphWidget_flares_3d.setBackground('w')
+        self.GraphWidget_flares_3d.setTitle('Kp(Date)')
+        self.GraphWidget_flares_3d.setLabel('left', 'Kp')
+        self.GraphWidget_flares_3d.setLabel('bottom', 'Date')
+        self.GraphWidget_flares_3d.addLine(x=None, y=0, pen='black')
+
         self.btnWeatherCurrent.clicked.connect(lambda: self.get_location('current'))
         self.btnWeatherForecast.clicked.connect(lambda: self.get_location('forecast'))
 
@@ -279,14 +303,17 @@ class MainWindow(QMainWindow):
 
             date_merge = pd.DataFrame({"longtime": s2h.dateBzBt, "value": s2h.bz})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
+            print()
             x = date_merge["longtime"]
             y = np.array(date_merge["value"], dtype=float)
             self.GraphWidget_bz_2h.plot(x, y,  kind="scatter", pen='black')
             self.GraphWidget_bz_2h.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_bz_2h.getPlotItem().hideAxis('bottom')
 
             y = np.array(s2h.bt, dtype=float)
             self.GraphWidget_bt_2h.plot(x, y,  kind="scatter", pen='black')
             self.GraphWidget_bt_2h.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_bt_2h.getPlotItem().hideAxis('bottom')
 
             date_merge = pd.DataFrame({"longtime": s2h.dateUP, "value": s2h.u})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
@@ -294,10 +321,12 @@ class MainWindow(QMainWindow):
             y = np.array(s2h.u, dtype=float)
             self.GraphWidget_u_2h.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_u_2h.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_u_2h.getPlotItem().hideAxis('bottom')
 
             y = np.array(s2h.p, dtype=float)
             self.GraphWidget_p_2h.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_p_2h.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_p_2h.getPlotItem().hideAxis('bottom')
 
             date_merge = pd.DataFrame({"longtime": s2h.dateDST, "value": s2h.DST})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
@@ -305,6 +334,7 @@ class MainWindow(QMainWindow):
             y = np.array(s2h.DST, dtype=float)
             self.GraphWidget_DST_2h.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_DST_2h.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_DST_2h.getPlotItem().hideAxis('bottom')
 
             date_merge = pd.DataFrame({"longtime": s2h.dateKp, "value": s2h.Kp})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
@@ -312,6 +342,7 @@ class MainWindow(QMainWindow):
             y = np.array(s2h.Kp, dtype=float)
             self.GraphWidget_Kp_2h.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_Kp_2h.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_Kp_2h.getPlotItem().hideAxis('bottom')
         if (type == '1d'):
             self.solarPages.setCurrentWidget(self.page_1d)
 
@@ -321,13 +352,16 @@ class MainWindow(QMainWindow):
             date_merge = pd.DataFrame({"longtime": s1d.dateBzBt, "value": s1d.bz})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
             x = date_merge["longtime"]
-            y = np.array(date_merge["value"], dtype=float)
-            self.GraphWidget_bz_1d.plot(x, y, kind="scatter", pen='black')
+
+            y = np.array(s1d.bz, dtype=float)
+            self.GraphWidget_bz_1d.plot(x, y, pen='black')
             self.GraphWidget_bz_1d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_bz_1d.getPlotItem().hideAxis('bottom')
 
             y = np.array(s1d.bt, dtype=float)
             self.GraphWidget_bt_1d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_bt_1d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_bt_1d.getPlotItem().hideAxis('bottom')
 
             date_merge = pd.DataFrame({"longtime": s1d.dateUP, "value": s1d.u})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
@@ -335,10 +369,12 @@ class MainWindow(QMainWindow):
             y = np.array(s1d.u, dtype=float)
             self.GraphWidget_u_1d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_u_1d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_u_1d.getPlotItem().hideAxis('bottom')
 
             y = np.array(s1d.p, dtype=float)
             self.GraphWidget_p_1d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_p_1d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_p_1d.getPlotItem().hideAxis('bottom')
 
             date_merge = pd.DataFrame({"longtime": s1d.dateDST, "value": s1d.DST})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
@@ -346,6 +382,7 @@ class MainWindow(QMainWindow):
             y = np.array(s1d.DST, dtype=float)
             self.GraphWidget_DST_1d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_DST_1d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_DST_1d.getPlotItem().hideAxis('bottom')
 
             date_merge = pd.DataFrame({"longtime": s1d.dateKp, "value": s1d.Kp})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
@@ -353,6 +390,7 @@ class MainWindow(QMainWindow):
             y = np.array(s1d.Kp, dtype=float)
             self.GraphWidget_Kp_1d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_Kp_1d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_Kp_1d.getPlotItem().hideAxis('bottom')
         if (type == '3d'):
             self.solarPages.setCurrentWidget(self.page_3d)
 
@@ -365,10 +403,12 @@ class MainWindow(QMainWindow):
             y = np.array(date_merge["value"], dtype=float)
             self.GraphWidget_bz_3d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_bz_3d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_bz_3d.getPlotItem().hideAxis('bottom')
 
             y = np.array(s3d.bt, dtype=float)
             self.GraphWidget_bt_3d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_bt_3d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_bt_3d.getPlotItem().hideAxis('bottom')
 
             date_merge = pd.DataFrame({"longtime": s3d.dateUP, "value": s3d.u})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
@@ -376,10 +416,12 @@ class MainWindow(QMainWindow):
             y = np.array(s3d.u, dtype=float)
             self.GraphWidget_u_3d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_u_3d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_u_3d.getPlotItem().hideAxis('bottom')
 
             y = np.array(s3d.p, dtype=float)
             self.GraphWidget_p_3d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_p_3d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_p_3d.getPlotItem().hideAxis('bottom')
 
             date_merge = pd.DataFrame({"longtime": s3d.dateDST, "value": s3d.DST})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
@@ -387,6 +429,7 @@ class MainWindow(QMainWindow):
             y = np.array(s3d.DST, dtype=float)
             self.GraphWidget_DST_3d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_DST_3d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_DST_3d.getPlotItem().hideAxis('bottom')
 
             date_merge = pd.DataFrame({"longtime": s3d.dateKp, "value": s3d.Kp})
             date_merge["longtime"] = pd.to_datetime(date_merge["longtime"])
@@ -394,6 +437,40 @@ class MainWindow(QMainWindow):
             y = np.array(s3d.Kp, dtype=float)
             self.GraphWidget_Kp_3d.plot(x, y, kind="scatter", pen='black')
             self.GraphWidget_Kp_3d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_Kp_3d.getPlotItem().hideAxis('bottom')
+
+    def get_graphics_flares(self, type):
+        self.raise_server_status()
+        if (type == '6h'):
+            self.flaresPages.setCurrentWidget(self.page_flares_6h)
+
+            s6h = Client.SolarFlares()
+            s6h.get_solarflares_6h()
+
+            y = np.array(s6h.flux, dtype=float)
+            self.GraphWidget_flares_6h.plot(y, kind="scatter", pen='black')
+            self.GraphWidget_flares_6h.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_flares_6h.getPlotItem().hideAxis('bottom')
+        if (type == '1d'):
+            self.flaresPages.setCurrentWidget(self.page_flares_1d)
+
+            s1d = Client.SolarFlares()
+            s1d.get_solarflares_1d()
+
+            y = np.array(s1d.flux, dtype=float)
+            self.GraphWidget_flares_1d.plot(y, kind="scatter", pen='black')
+            self.GraphWidget_flares_1d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_flares_1d.getPlotItem().hideAxis('bottom')
+        if (type == '3d'):
+            self.flaresPages.setCurrentWidget(self.page_flares_3d)
+
+            s3d = Client.SolarFlares()
+            s3d.get_solarflares_3d()
+
+            y = np.array(s3d.flux, dtype=float)
+            self.GraphWidget_flares_3d.plot(y, kind="scatter", pen='black')
+            self.GraphWidget_flares_3d.plotItem.setMouseEnabled(x=False, y=False)
+            self.GraphWidget_flares_3d.getPlotItem().hideAxis('bottom')
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
