@@ -1,8 +1,5 @@
-import datetime as dt
-
 import requests
 from requests import HTTPError
-
 
 ####################################################################################################################
 #   Класс для элемента "Солнце"
@@ -118,16 +115,9 @@ class SolarInfo:
     def get_info(self):
         s = str(self.dateBzBt) + "\n" + str(self.bz) + "\n" + str(self.bt) + "\n" + str(self.u) + "\n" + str(self.p) + "\n" + str(self.dateDST) + "\n" + str(self.DST) + "\n" + str(self.dateKp) + "\n" + str(self.Kp) + "\n" + str(self.KpType) + "\n\n"
         return s
-
-    def check_situation(self):
-        
-
-        return self.status
 ####################################################################################################################
 #   Класс для элемента "Погода"
 ####################################################################################################################
-#
-#                                           ЗАПИСАТЬ ДАННЫЕ!!!!!
 class WeatherInfo:
     def __init__(self):
         # Данные собираются с WeatherAPI.com
@@ -174,7 +164,6 @@ class WeatherInfo:
         s += "Daily chance of rain: " + str(self.forecast.get('daily_chance_of_rain')) + "\n\n" + "Weather: " + str(self.weather)
         s += "\n\n\n"
         return s
-
 ####################################################################################################################
 #   Класс для элемента "Солнечные вспышки"
 ####################################################################################################################

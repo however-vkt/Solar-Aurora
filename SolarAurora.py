@@ -1,7 +1,8 @@
-import requests
-import sys
+import time
 
-from PyQt5.QtCore import QSize
+import requests
+
+from PyQt5.QtCore import QSize, QTimer
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
@@ -27,7 +28,7 @@ class MainWindow(QMainWindow):
             "DST - temporary recession index.\n\n" +
             "Kp-index is the global geomagnetic activity index that is based on 3-hour measurements" +
             "from ground-based magnetometers around the world.\n\n\n" +
-            "A notification pops up for aurora monitoring when 3 conditions match:\n\n\n" +
+            "A notification pops up for aurora monitoring when 5 conditions match:\n\n\n" +
             "Kp >= 5 ( non-priority )\n\n" +
             "p > 20\n\n" +
             "u > 500\n\n" +
@@ -40,15 +41,13 @@ class MainWindow(QMainWindow):
         self.label_help.setText("The application was created to monitoring solar activity and forecasting auroras\n\n" +
                                 "There is email to receive feedback:\n\n\n" +
                                 "however.viktor@gmail.com")
-########################################################################################################################
-#                       Инициализация основных кнопок
-########################################################################################################################
+
         # Кнопка - Notification
         icon = QIcon()
         icon.addPixmap(QPixmap('pic/bell.png'))
         self.btnNotification.setIcon(icon)
         self.btnNotification.setIconSize(QSize(32, 32))
-        self.btnNotification.clicked.connect(lambda: self.popupNotificationContainer.show())
+        self.btnNotification.clicked.connect(lambda: self.check_situation())
 
         # Кнопка - Close Notification
         icon.addPixmap(QPixmap('pic/x.png'))
@@ -96,10 +95,6 @@ class MainWindow(QMainWindow):
         self.settingsBtn.setIconSize(QSize(32, 32))
         self.settingsBtn.clicked.connect(lambda: self.mainPages.setCurrentWidget(self.page_settings))
 
-########################################################################################################################
-#                       Инициализация основных событий
-########################################################################################################################
-
         self.btnSolar2h.clicked.connect(lambda: self.get_graphics_solarinfo('2h'))
         self.btnSolar1d.clicked.connect(lambda: self.get_graphics_solarinfo('1d'))
         self.btnSolar3d.clicked.connect(lambda: self.get_graphics_solarinfo('3d'))
@@ -107,14 +102,6 @@ class MainWindow(QMainWindow):
         self.btnFlares6h.clicked.connect(lambda: self.get_graphics_flares('6h'))
         self.btnFlares1d.clicked.connect(lambda: self.get_graphics_flares('1d'))
         self.btnFlares3d.clicked.connect(lambda: self.get_graphics_flares('3d'))
-
-        #
-        #self.btnWeatherCurrent.clicked.connect()
-        #self.btnWeatherForecast.clicked.connect()
-        #
-        #self.btnFlares6h.clicked.connect()
-        #self.btnFlares1d.clicked.connect()
-        #self.btnFlares3d.clicked.connect()
 
         self.GraphWidget_bz_2h.setBackground('w')
         self.GraphWidget_bz_2h.setTitle('Bz(Date)')
@@ -229,8 +216,6 @@ class MainWindow(QMainWindow):
         self.GraphWidget_Kp_3d.setLabel('left', 'Kp')
         self.GraphWidget_Kp_3d.setLabel('bottom', 'Date')
         self.GraphWidget_Kp_3d.addLine(x=None, y=0, pen='black')
-
-        #
 
         self.GraphWidget_flares_6h.setBackground('w')
         self.GraphWidget_flares_6h.setTitle('Kp(Date)')
@@ -472,9 +457,52 @@ class MainWindow(QMainWindow):
             self.GraphWidget_flares_3d.plotItem.setMouseEnabled(x=False, y=False)
             self.GraphWidget_flares_3d.getPlotItem().hideAxis('bottom')
 
+    def check_situation(self):
+        self.popupNotificationContainer.show()
+        s2h = Client.SolarInfo()
+        s2h.get_solarinfo_2h()
+        bz = np.array(s2h.bz, dtype=float)
+        kp = np.array(s2h.Kp, dtype=float)
+        p = np.array(s2h.p, dtype=float)
+        u = np.array(s2h.u, dtype=float)
+        av = sum(bz)/len(bz)
+        print(bz[len(bz)-1])
+        print(p[len(p)-1])
+        print(u[len(u)-1])
+        print(kp[len(kp)-1])
+        print(av)
+        if ((kp[len(kp)-1] >= 7) and (p[len(p)-1] > 25) and (u[len(u)-1] > 650) and (
+                bz[len(bz)-1] <= -15 and av < 0)):
+            self.label_13.setText("Very high solar activity")
+            self.label_13.setStyleSheet("background-color:red;")
+            print('red status')
+            return
+        if ((kp[len(kp)-1] >= 6) and (p[len(p)-1] > 20) and (u[len(u)-1] > 550) and (
+                bz[len(bz)-1] <= -12 and av < 0)):
+            self.label_13.setText("High solar activity")
+            self.label_13.setStyleSheet("background-color:#FF4500;")
+            print('dark orange status')
+            return
+        if ((kp[len(kp)-1] >= 6) and (p[len(p)-1] > 25) and (u[len(u)-1] > 500) and (
+                bz[len(bz)-1] <= -12 and av < 0)):
+            self.label_13.setText("Medium solar activity")
+            self.label_13.setStyleSheet("background-color:#FF8C00;")
+            print('orange status')
+            return
+        if ((kp[len(kp)-1] >= 5) and (p[len(p)-1] > 20) and (u[len(u)-1] > 500) and (
+                bz[len(bz)-1] <= -10 and av < 0)):
+            self.label_13.setText("Low solar activity")
+            self.label_13.setStyleSheet("background-color:#FFA500;")
+            print('yellow status')
+            return
+        self.label_13.setText("Very low solar activity")
+        self.label_13.setStyleSheet("background-color:#9ACD32;")
+        print('green status')
+        return
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
+    window.check_situation()
 
     sys.exit(app.exec_())
